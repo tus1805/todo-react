@@ -4,16 +4,27 @@ import Label from "../Label";
 import Text from "../Text";
 
 const FormGroup = (props) => {
-  const { labelName, groupId, handleInput, textClassName, content, inputType } =
-    props;
+  const {
+    labelName,
+    groupId,
+    handleInput,
+    textClassName,
+    content,
+    inputType,
+    value,
+    onChange,
+  } = props;
 
   return (
-    <div class="form-group">
+    <div className="form-group">
       <Label labelId={groupId} labelName={labelName} />
       <Input
         inputId={groupId}
         onInputFunction={handleInput}
         inputType={inputType}
+        inputName={groupId}
+        value={value}
+        onChange={onChange}
       />
       <Text
         textId={`${groupId}-error-message`}
