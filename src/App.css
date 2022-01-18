@@ -1,0 +1,309 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to right, lightblue , pink);
+  height: 100vh;
+  margin: 0;
+}
+
+.form-container {
+  padding: 20px 40px;
+  border: 3px solid gray;
+  border-radius: 10px;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  background-color: #607d8b;
+}
+
+.form-group {
+  color: white
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container a {
+  margin: 10px;
+  color: #00f3ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.form-container a:hover {
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.form-container h1 {
+  text-align: center;
+  text-shadow: 2px 2px 4px midnightblue;
+}
+
+.form-container button {
+  margin-top: 25px;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+
+  background-color: green;
+  border: 1px solid darkgreen;
+  color: white;
+  border-radius: 6px;
+
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.form-group input {
+  width: 200px;
+  padding: 4px 10px;
+}
+
+.radio-group {
+  align-self: flex-start;
+}
+
+.radio-group label:hover {
+  cursor: pointer;
+}
+
+.checkbox-group {
+  display: flex;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.error-message {
+  display: block;
+  color: yellow;
+  width: 224px;
+}
+
+.error-message.success {
+  display: block;
+  color: green;
+}
+
+input#name {
+  text-transform: capitalize;
+}
+
+input#username {
+  text-transform: lowercase;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px
+}
+.header a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  font-size: 1.5rem;
+}
+.header a:focus {
+  text-decoration: none;
+  color: white;
+}
+.header a:hover {
+  text-decoration: underline;
+}
+
+.logout-button {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 80px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: 2px gray solid;
+  margin: 5px;
+}
+.logout-button:hover {
+  background-color: lightseagreen;
+  color: white;
+}
+
+.l-container {
+  width: 100%;
+  height: 100%;
+}
+.welcome-message {
+  color: white;
+  text-shadow: 1px 1px 10px deepskyblue;
+}
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.todo-list {
+  margin: 10px;
+  background: white;
+  border-radius: 10px;
+  border: 3px solid darkcyan;
+  padding: 0 20px;
+  min-width: 250px;
+}
+.todo-item {
+  display: flex;
+  width: 500px;
+  margin: 10px;
+  border-bottom: 1px solid black;
+  padding-bottom: 8px;
+}
+
+.todo-item-taskname {
+  flex-grow: 10;
+  padding: 5px;
+}
+.todo-item:nth-child(4n + 1) {
+  color: orchid
+}
+.todo-item:nth-child(4n + 2) {
+  color: green
+}
+.todo-item:nth-child(4n + 3) {
+  color: chocolate
+}
+.todo-item:nth-child(4n) {
+  color: darksalmon
+}
+.button-update-task {
+  display: none;
+}
+
+.button-update-user{
+  display: none;
+}
+
+input#checkbox[type=checkbox]:checked + label{
+  text-decoration: line-through;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+.filter-option {
+  margin: 10px;
+}
+.add-task-field {
+  outline: none;
+  border: 2px solid midnightblue;
+  width: 300px;
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+.button-add-task {
+  background: rebeccapurple;
+  color: white;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.button-clear-task {
+  background: seagreen;
+  color: white;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.button-update-task {
+  background: blue;
+  color: white;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.button-edit-task {
+  background: yellow;
+  color: darkcyan;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.button-delete-task {
+  background: red;
+  color: white;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.filter {
+  padding: 5px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  background: deeppink;
+  color: white;
+  font-weight: 700;
+}
+.filter option {
+  background: white;
+  color: darkgray;
+}
+.project-control-container {
+  display: flex;
+}
+
+table {
+  border: 1px solid black;
+}
+
+table {
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+}
+table td:nth-child(2) {
+  text-align: center;
+}
+table th:nth-child(1) {
+  text-align: left;
+}
+
+.user-info-table {
+  margin: 20px;
+  width: 300px;
+}
+.control-option {
+  display: flex;
+  justify-content: center;
+}
+.user-admin-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+}
+
+.hide {
+  display: none;
+}
