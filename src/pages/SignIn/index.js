@@ -26,9 +26,6 @@ const SignIn = () => {
         </form>
       </div>
       <script src="script-signin.js"></script>
-      <Input
-      
-      />
     </body>
   )
 }

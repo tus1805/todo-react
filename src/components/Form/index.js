@@ -1,20 +1,50 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 
-const Input = (props) => {
-  const { inputClassName, inputType, onInputFunction } = props; 
+const InputText = (props) => {
+  const { inputId, onInputFunction } = props; 
 
   return (
-    <input className="inputClassName" type="" onInput={onInputFunction}>
+    <input id={inputId} type="text" onInput={onInputFunction}>
       
     </input>
   )
 }
-const Label = (props) => {
-  const { labelName } = props;
-  return(
-    <label for=''></label>
+
+const InputPassword = (props) => {
+  const { inputId, onInputFunction } = props; 
+
+  return (
+    <input id={inputId} type="password" onInput={onInputFunction}>
+      
+    </input>
   )
 }
 
-export default { Input, Label }
+const ButtonSubmit = (props) => {
+  const { buttonName } = props
+
+  return (
+    <button type="submit">
+      {buttonName}
+    </button>
+  )
+}
+
+const Label = (props) => {
+  const { labelName } = props;
+  return(
+    <label for={labelName}></label>
+  )
+}
+
+const Span = (props) => {
+  return (
+    <span >
+      
+    </span>
+  )
+}
+
+
+export default { InputText, InputPassword, ButtonSubmit, Label, Span }
