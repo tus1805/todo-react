@@ -29,10 +29,9 @@ function App() {
       case 0:
         return <SignIn changeLink={() => setPage(1)} />;
       case 1:
-        return <SignUp setPage={setPage} />;
+        return <SignUp changeLink={() => setPage(0)} />;
       default:
-        <SignIn changeLink={() => setPage(1)} />;
-        break;
+        return <SignIn changeLink={() => setPage(1)} />;
     }
   }
 

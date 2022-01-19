@@ -20,7 +20,8 @@ import {
   getDataFromLocalByKey,
 } from "../../utils/process-data";
 
-const SignUp = () => {
+const SignUp = (props) => {
+  const { changeLink } = props;
   const [data, setData] = useState({ username: "", password: "" });
   function submitForm() {
     const {
