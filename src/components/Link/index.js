@@ -1,9 +1,13 @@
 import React from "react";
 
 const Link = (props) => {
-  const { path, linkName } = props;
+  const { linkName, onClick } = props;
 
-  return <a href={path}>{linkName}</a>;
+  return (
+    <p className="linkpath" onClick={onClick}>
+      {linkName}
+    </p>
+  );
 };
 
 export default Link;

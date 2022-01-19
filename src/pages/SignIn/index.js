@@ -17,7 +17,8 @@ import {
   getDataFromLocalByKey,
 } from "../../utils/process-data";
 
-const SignIn = () => {
+const SignIn = (props) => {
+  const { changeLink } = props;
   const [data, setData] = useState({ username: "", password: "" });
   console.log(data);
 
@@ -87,7 +88,11 @@ const SignIn = () => {
           />
           <ButtonSubmit buttonName="Sign in" />
           <CheckboxGroup groupId="remember" labelName="Remember account" />
-          <Link path="/sign-up" linkName="Sign up now" />
+          <Link
+            // path="/sign-up"
+            linkName="Sign up now"
+            onClick={changeLink}
+          />
         </>
       }
     />

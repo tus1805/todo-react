@@ -18,7 +18,7 @@ const Input = (props) => {
       name={inputName}
       value={value}
       onChange={onChange}
-      checked={checked}
+      defaultChecked={checked}
     ></input>
   );
 };
