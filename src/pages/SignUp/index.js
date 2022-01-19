@@ -6,15 +6,15 @@ import FormGroup from "../../components/FormGroup";
 import Link from "../../components/Link";
 import RadioGroup from '../../components/RadioButtonGroup';
 import RadioButton from '../../components/RadioButton';
+import { NOTI_MESSAGE } from "../../constants/validate";
 import {
   validateName,
   validateUsername,
   validatePassword,
   validateConfirmPassword,
   validateAge,
-  getElementValueById,
-  NOTI_MESSAGE,
 } from "../../utils/validate-signUp";
+import { resetForm, getElementValueById } from "../../utils/helper";
 import {
   setItemWithLocal,
   setItemWithSession,
@@ -72,43 +72,13 @@ const SignUp = () => {
     };
   }
 
-  function resetForm() {
-    resetInputForm()
-    resetMessageForm()
-  }
-
-  function resetInputForm() {
-    resetElementValueById("name");
-    resetElementValueById("username");
-    resetElementValueById("password");
-    resetElementValueById("confirmPassword");
-    resetElementValueById("age");
-  }
-
-  function resetMessageForm() {
-    resetElementContentById("name-error-message");
-    resetElementContentById("username-error-message");
-    resetElementContentById("password-error-message");
-    resetElementContentById("confirmPassword-error-message");
-    resetElementContentById("age-error-message");
-  }
-
-  function resetElementValueById(id) {
-    const currentElement = document.getElementById(id);
-    currentElement.value = "";
-  }
-  
-  function resetElementContentById(id) {
-    const currentElement = document.getElementById(id);
-    currentElement.innerHTML = "";
-  }
 
   function handleChange(e) {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   }
 
-  function handleNameMessage(e){
+  function handleNameMessage(e) {
     const name = getElementValueById("name");
     validateName(name);
   }
@@ -119,9 +89,8 @@ const SignUp = () => {
   }
 
   function handlePasswordMessage(e) {
-    const username = getElementValueById("username");
     const password = getElementValueById("password");
-    validatePassword(username, password);
+    validatePassword(password);
   }
 
   function handleConfirmPasswordMessage(e) {
@@ -129,7 +98,7 @@ const SignUp = () => {
     const confirmPassword = getElementValueById("confirmPassword");
     validateConfirmPassword(password, confirmPassword);
   }
-  function handleAgeMessage(e){
+  function handleAgeMessage(e) {
     const age = getElementValueById("age");
     validateAge(age);
   }
