@@ -10,7 +10,7 @@ import {
   validatePassword,
   getCurrentUserInfo,
   getElementValueById,
-} from "../../utils/validate";
+} from "../../utils/validate-signIn";
 import {
   setItemWithLocal,
   setItemWithSession,
@@ -62,7 +62,7 @@ const SignIn = () => {
 
   return (
     <Form
-      formName="signUpForm"
+      formName="signInForm"
       onSubmit={submitForm}
       children={
         <>

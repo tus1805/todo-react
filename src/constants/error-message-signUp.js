@@ -1,0 +1,18 @@
+export const ERROR_MESSAGE = {
+  EMPTY: `Not empty`,
+  HAS_NUMBER: `Need numbers`,
+  HAS_NOT_NUMBER: `Must not contain numbers`,
+  NAME_LENGTH: `Length needs from 3-20 characters`,
+  USERNAME_LENGTH: `Length needs from 6-20 characters`,
+  PASSWORD_LENGTH: `Length needs from 6-20 characters`,
+  WORD_NAME_LENGTH: `Need at least 2 words`,
+  AGE_VALUE: `Invalid age`,
+  SUCCESS: `Success`,
+  SPECIAL_CHAR: `Must not contain special characters`,
+  PASSWORD_RULE: `Numbers, uppercase and lowercase letters are required`,
+  HAS_UPPER_CHAR: `Uppercase are required`,
+  HAS_LOWER_CHAR: `Lowercase are required`,
+  HAS_MUL_NUMBER: `Must not contain sets of 3 consecutive numbers`,
+  SAME_VALUE: `Password does not match`,
+  EXIST_USERNAME: `Username has been used`,
+}

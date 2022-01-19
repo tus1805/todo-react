@@ -1,4 +1,5 @@
 import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
 
 export const router = [
   {
@@ -21,5 +22,6 @@ export const router = [
   {
     name: "sign-up",
     value: "/sign-up",
+    page: <SignUp/>
   },
 ];

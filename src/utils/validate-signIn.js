@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/error-message";
+import { ERROR_MESSAGE } from "../constants/error-message-signIn";
 import { getDataFromLocalStorage, setItemWithLocal } from "./process-data";
 
 export function validateUsername(username) {
