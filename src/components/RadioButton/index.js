@@ -3,17 +3,17 @@ import Input from '../Input';
 import Label from "../Label";
 
 const RadioButton = (props) => {
-  const { labelName, groupId, value, checked } = props;
+  const { labelName, groupId, value, inputName, onChange } = props;
 
   return (
     <>
       <Input
         inputType="radio"
-        inputName={groupId}
+        inputName={inputName}
         value={value}
-        checked={checked}
+        onChange={onChange}
       />
-      <Label labelId={groupId} labelName={labelName} />
+      <Label labelId={groupId} labelName={labelName} onChange={onChange} />
     </>
   );
 }

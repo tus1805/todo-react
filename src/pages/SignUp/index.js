@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ButtonSubmit from "../../components/ButtonSubmit";
-import CheckboxGroup from "../../components/CheckboxGroup";
 import Form from "../../components/Form";
 import FormGroup from "../../components/FormGroup";
 import RadioGroup from "../../components/RadioButtonGroup";
@@ -14,29 +13,28 @@ import {
   validateAge,
 } from "../../utils/validate-signUp";
 import { resetForm, getElementValueById } from "../../utils/helper";
-import {
-  setItemWithLocal,
-  setItemWithSession,
-  getDataFromLocalByKey,
-} from "../../utils/process-data";
 
 const SignUp = (props) => {
   const { changeLink } = props;
-  const [data, setData] = useState({ username: "", password: "" });
-  function submitForm() {
-    const {
-      userId,
-      name,
-      username,
-      password,
-      confirmPassword,
-      age,
-      gender,
-      role,
-    } = getFormData();
+  const [data, setData] = useState({
+    userId: "",
+    name: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    age: "",
+    gender: "",
+    role: "",
+  });
+  const [genderValue, setGenderValue] = useState("");
+  function submitForm(e) {
+    e.preventDefault();
+    const newId = Math.floor(Math.random() * 10000000) + 1;
     const existUserData = JSON.parse(localStorage.getItem("userdata")) || [];
-    const userData = { userId, name, username, password, age, gender, role };
+    const userData = data;
+    userData.userId = newId;
     userData.role = "user";
+    console.log(userData);
     if (!validateForm()) {
       return;
     }
@@ -44,42 +42,32 @@ const SignUp = (props) => {
     existUserData.push(userData);
     localStorage.setItem("userdata", JSON.stringify(existUserData));
     alert(NOTI_MESSAGE.SUCCESS);
-    window.location.href = "/sign-in";
+    changeLink(0);
   }
 
   function validateForm() {
-    const { name, username, password, confirmPassword, age, gender } =
-      getFormData();
     if (
-      !validateName(name) ||
-      !validateUsername(username) ||
-      !validatePassword(password) ||
-      !validateConfirmPassword(password, confirmPassword) ||
-      !validateAge(age) ||
-      !gender
+      !validateName(data.name) ||
+      !validateUsername(data.username) ||
+      !validatePassword(data.password) ||
+      !validateConfirmPassword(data.password, data.confirmPassword) ||
+      !validateAge(data.age) ||
+      !data.gender
     ) {
       return false;
     }
     return true;
   }
 
-  function getFormData() {
-    const newId = Math.floor(Math.random() * 10000000) + 1;
-    const genderValue = document.querySelector(
-      'input[name="gender"]:checked'
-    ).value;
-    // const roleValue = checkRole();
-    return {
-      userId: newId,
-      name: getElementValueById("name"),
-      username: getElementValueById("username"),
-      password: getElementValueById("password"),
-      confirmPassword: getElementValueById("confirmPassword"),
-      age: getElementValueById("age"),
-      gender: genderValue,
-      role: "user",
-    };
+  function getGenderValue(e) {
+    setGenderValue(e.target.value);
   }
+
+  useEffect(() => {
+    const newData = data;
+    newData.gender = genderValue;
+    setData(newData);
+  }, [genderValue]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -171,13 +159,16 @@ const SignUp = (props) => {
                   <RadioButton
                     labelName="Male:"
                     groupId="male"
-                    value={data.gender}
-                    checked
+                    value="male"
+                    inputName="gender"
+                    onChange={getGenderValue}
                   />
                   <RadioButton
                     labelName="Female:"
                     groupId="female"
-                    value={data.gender}
+                    value="female"
+                    inputName="gender"
+                    onChange={getGenderValue}
                   />
                 </>
               }
@@ -190,4 +181,4 @@ const SignUp = (props) => {
   );
 };
 
-export default SignUp
+export default SignUp;

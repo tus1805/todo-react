@@ -23,14 +23,18 @@ function App() {
     switchPage();
   }, [page]);
 
+  function changeLink(pageNum) {
+    setPage(pageNum);
+  }
+
   function switchPage() {
     switch (page) {
       case 0:
-        return <SignIn changeLink={() => setPage(1)} />;
+        return <SignIn changeLink={changeLink} />;
       case 1:
-        return <SignUp changeLink={() => setPage(0)} />;
+        return <SignUp changeLink={changeLink} />;
       default:
-        return <SignIn changeLink={() => setPage(1)} />;
+        return <SignIn changeLink={changeLink} />;
     }
   }
 

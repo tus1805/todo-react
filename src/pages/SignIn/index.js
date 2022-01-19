@@ -22,7 +22,8 @@ const SignIn = (props) => {
   const [data, setData] = useState({ username: "", password: "" });
   console.log(data);
 
-  function submitForm() {
+  function submitForm(e) {
+    e.preventDefault();
     if (!validateForm) {
       return;
     }
@@ -91,7 +92,7 @@ const SignIn = (props) => {
             labelName="Remember account"
             onChange={rememberCurrentUser}
           />
-          <Link linkName="Sign up now" onClick={changeLink} />
+          <Link linkName="Sign up now" onClick={() => changeLink(1)} />
         </>
       }
     />
