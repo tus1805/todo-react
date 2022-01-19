@@ -26,7 +26,7 @@ const SignIn = (props) => {
     if (!validateForm) {
       return;
     }
-    // resetForm();
+    setData({ username: "", password: "" });
     alert("Login successfully");
     window.location.href = "/";
     const isRemember = getDataFromLocalByKey("isRemember");
@@ -37,7 +37,6 @@ const SignIn = (props) => {
 
   function validateForm() {
     const { username, password } = data;
-    rememberCurrentUser();
     if (!validateUsername(username) || !validatePassword(username, password)) {
       return false;
     }
@@ -87,12 +86,12 @@ const SignIn = (props) => {
             onChange={handleChange}
           />
           <ButtonSubmit buttonName="Sign in" />
-          <CheckboxGroup groupId="remember" labelName="Remember account" />
-          <Link
-            // path="/sign-up"
-            linkName="Sign up now"
-            onClick={changeLink}
+          <CheckboxGroup
+            groupId="remember"
+            labelName="Remember account"
+            onChange={rememberCurrentUser}
           />
+          <Link linkName="Sign up now" onClick={changeLink} />
         </>
       }
     />

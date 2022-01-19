@@ -71,10 +71,5 @@ function successMessage(fieldName) {
 }
 
 export function rememberCurrentUser() {
-  const isRemember = document.getElementById("remember").checked;
-  if (isRemember === true) {
-    setItemWithLocal("isRemember", true);
-  } else {
-    setItemWithLocal("isRemember", false);
-  }
+  setItemWithLocal("isRemember", document.getElementById("remember").checked);
 }

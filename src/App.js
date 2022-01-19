@@ -24,7 +24,6 @@ function App() {
   }, [page]);
 
   function switchPage() {
-    console.log(page);
     switch (page) {
       case 0:
         return <SignIn changeLink={() => setPage(1)} />;
