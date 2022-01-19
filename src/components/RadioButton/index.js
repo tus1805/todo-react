@@ -3,24 +3,19 @@ import Input from '../Input';
 import Label from "../Label";
 
 const RadioButton = (props) => {
-  const {
-    labelName,
-    groupId,
-    value,
-
-  } = props
+  const { labelName, groupId, value, checked } = props;
 
   return (
-    <div className="radio-button">
+    <>
       <Input
-        inputId={groupId}
         inputType="radio"
         inputName={groupId}
         value={value}
+        checked={checked}
       />
-      <Label labelId={groupId} labelName={labelName}/>
-    </div>
-  )
+      <Label labelId={groupId} labelName={labelName} />
+    </>
+  );
 }
 
 export default RadioButton

@@ -1,8 +1,15 @@
 import React from "react";
 
 const Input = (props) => {
-  const { inputId, onInputFunction, inputType, inputName, value, onChange } =
-    props;
+  const {
+    inputId,
+    onInputFunction,
+    inputType,
+    inputName,
+    value,
+    onChange,
+    checked,
+  } = props;
   return (
     <input
       id={inputId}
@@ -11,6 +18,7 @@ const Input = (props) => {
       name={inputName}
       value={value}
       onChange={onChange}
+      checked={checked}
     ></input>
   );
 };

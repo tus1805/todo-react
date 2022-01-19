@@ -3,9 +3,8 @@ import ButtonSubmit from "../../components/ButtonSubmit";
 import CheckboxGroup from "../../components/CheckboxGroup";
 import Form from "../../components/Form";
 import FormGroup from "../../components/FormGroup";
-import Link from "../../components/Link";
-import RadioGroup from '../../components/RadioButtonGroup';
-import RadioButton from '../../components/RadioButton';
+import RadioGroup from "../../components/RadioButtonGroup";
+import RadioButton from "../../components/RadioButton";
 import { NOTI_MESSAGE } from "../../constants/validate";
 import {
   validateName,
@@ -21,26 +20,35 @@ import {
   getDataFromLocalByKey,
 } from "../../utils/process-data";
 
-
 const SignUp = () => {
   const [data, setData] = useState({ username: "", password: "" });
   function submitForm() {
-    const { userId, name, username, password, confirmPassword, age, gender, role } = getFormData();
-    const existUserData = JSON.parse(localStorage.getItem('userdata')) || [];
-    const userData = { userId, name, username, password, age, gender, role }
-    userData.role = "user"
+    const {
+      userId,
+      name,
+      username,
+      password,
+      confirmPassword,
+      age,
+      gender,
+      role,
+    } = getFormData();
+    const existUserData = JSON.parse(localStorage.getItem("userdata")) || [];
+    const userData = { userId, name, username, password, age, gender, role };
+    userData.role = "user";
     if (!validateForm()) {
       return;
     }
     resetForm();
     existUserData.push(userData);
-    localStorage.setItem('userdata', JSON.stringify(existUserData));
+    localStorage.setItem("userdata", JSON.stringify(existUserData));
     alert(NOTI_MESSAGE.SUCCESS);
     window.location.href = "/sign-in";
   }
 
   function validateForm() {
-    const { name, username, password, confirmPassword, age, gender } = getFormData();
+    const { name, username, password, confirmPassword, age, gender } =
+      getFormData();
     if (
       !validateName(name) ||
       !validateUsername(username) ||
@@ -71,7 +79,6 @@ const SignUp = () => {
       role: "user",
     };
   }
-
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -164,6 +171,7 @@ const SignUp = () => {
                     labelName="Male:"
                     groupId="male"
                     value={data.gender}
+                    checked
                   />
                   <RadioButton
                     labelName="Female:"
@@ -174,13 +182,11 @@ const SignUp = () => {
               }
             />
           </div>
-          <ButtonSubmit buttonName="Sign in" />
-          <CheckboxGroup groupId="remember" labelName="Remember account" />
-          {/* <Link path="/sign-up" linkName="Sign up now" /> */}
+          <ButtonSubmit buttonName="Sign up" />
         </>
       }
     />
-  )
-}
+  );
+};
 
 export default SignUp
