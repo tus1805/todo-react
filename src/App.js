@@ -1,6 +1,7 @@
 import "./App.css";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import ToDoList from "./pages/ToDoList"
 import { adminAccount } from "./constants/error-message-signIn";
 import { useEffect, useState } from "react";
 import { setItemWithLocal } from "./utils/process-data";
@@ -42,7 +43,8 @@ function App() {
     <div className="App">
       {/* <SignIn /> */}
       {/* <SignUp /> */}
-      {switchPage()}
+      {/* {switchPage()} */}
+      <ToDoList/>
     </div>
   );
 }
