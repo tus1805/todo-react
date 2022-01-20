@@ -5,7 +5,6 @@ import HeaderLeft from '../../components/Header-Left';
 import HeaderRight from '../../components/Header-Right';
 import Link from "../../components/Link";
 import Button from '../../components/Button';
-import ToDoContainer from '../../components/ToDoContainer';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import Option from '../../components/Option';
@@ -57,7 +56,9 @@ const ToDoList = (props) => {
     return chosenOption; 
   }
   return (
-    <Container>
+    <Container
+    containerName="l-container"
+    >
       <>
         <Header
           headerName="header"
@@ -78,7 +79,8 @@ const ToDoList = (props) => {
             </HeaderRight>
           </>
         </Header>
-        <ToDoContainer>
+        <Container
+        containerName="todo-container">
           <>
             <h1 id="welcome-message" class="welcome-message">Hello</h1>
             <div className='todo-form'>
@@ -122,7 +124,7 @@ const ToDoList = (props) => {
               listId="todo-list"
             />
           </>
-        </ToDoContainer>
+        </Container>
       </>
     </Container>
   )
