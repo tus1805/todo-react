@@ -10,7 +10,7 @@ import Input from '../../components/Input';
 import Select from '../../components/Select';
 import Option from '../../components/Option';
 import List from '../../components/List';
-import { renderTaskList, getItemFromLocal, getTaskFromLocal,setItemToLocal } from '../../utils/todo-list';
+import { renderTaskList, getItemFromLocal, getTaskFromLocal, setItemToLocal } from '../../utils/todo-list';
 
 const ToDoList = (props) => {
   const { changeLink, onClick } = props
@@ -54,31 +54,30 @@ const ToDoList = (props) => {
   function handleFilterOption() {
     const chosenOption = document.getElementById("filter").value;
     renderTaskList(chosenOption);
-    return chosenOption;
+    return chosenOption; 
   }
   return (
     <Container>
       <>
         <Header
           headerName="header"
-          children={
-            <>
-              <HeaderLeft>
-                <>
-                  <Link linkName="Main" onClick={changeLink} />
-                  <Link linkName="Project" onClick={changeLink} />
-                  <Link linkName="User" onClick={changeLink} />
-                </>
-              </HeaderLeft>
-              <HeaderRight>
-                <Button
-                  onClick={onClick}
-                  buttonName="Log out"
-                />
-              </HeaderRight>
-            </>
-          }
-        />
+        >
+          <>
+            <HeaderLeft>
+              <>
+                <Link linkName="Main" onClick={changeLink} />
+                <Link linkName="Project" onClick={changeLink} />
+                <Link linkName="User" onClick={changeLink} />
+              </>
+            </HeaderLeft>
+            <HeaderRight>
+              <Button
+                onClick={onClick}
+                buttonName="Log out"
+              />
+            </HeaderRight>
+          </>
+        </Header>
         <ToDoContainer>
           <>
             <h1 id="welcome-message" class="welcome-message">Hello</h1>
@@ -110,15 +109,14 @@ const ToDoList = (props) => {
               name="filter"
               selectId="filter"
               selectClass="filter"
-              onChange={handleFilterOption()}
-              children={
-                <>
-                  <Option value="all" name="All" />
-                  <Option value="done" name="Done" />
-                  <Option value="undone" name="Undone" />
-                </>
-              }
-            />
+              onChange={handleFilterOption}
+            >
+              <>
+                <Option value="all" name="All" />
+                <Option value="done" name="Done" />
+                <Option value="undone" name="Undone" />
+              </>
+            </Select>
             <List
               listClass="todo-list"
               listId="todo-list"
