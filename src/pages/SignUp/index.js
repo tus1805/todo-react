@@ -12,7 +12,7 @@ import {
   validateConfirmPassword,
   validateAge,
 } from "../../utils/validate-signUp";
-import { resetForm, getElementValueById } from "../../utils/helper";
+import { resetForm, getElementValueById } from "../../utils/helper-validate";
 
 const SignUp = (props) => {
   const { changeLink } = props;

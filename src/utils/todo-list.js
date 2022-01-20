@@ -1,10 +1,4 @@
-export function doLogOut() {
-  localStorage.setItem("isLogin", false);
-  sessionStorage.setItem("isLogin", false);
-  localStorage.removeItem("currentUser");
-  window.location.href = "./sign-in"
-  return;
-}
+import { checkAdmin, checkIsLogin, getItemFromLocal, setItemToLocal, getTaskFromLocal, resetForm} from "./helper-verycool";
 
 export function checkLoginStatus() {
   if (!checkIsLogin()) {
@@ -15,29 +9,6 @@ export function checkLoginStatus() {
   welcomeUser();
   // checkAdmin();
   renderTaskList();
-}
-
-// export function checkAdmin() {
-//   const welcomeContent = document.getElementById('welcome-message');
-//   const currentUser = getItemFromLocal('currentUser');
-//   if (currentUser.role === "admin") {
-//     window.location.href = "/project-admin"
-//   }
-// }
-
-export function getItemFromLocal(key) {
-  return JSON.parse(localStorage.getItem(key));
-}
-
-export function checkIsLogin() {
-  if (checkIsRemember()) {
-    return getItemFromLocal("isLogin");
-  }
-  return JSON.parse(sessionStorage.getItem("isLogin"));
-}
-
-export function checkIsRemember() {
-  return getItemFromLocal("isRemember");
 }
 
 export function welcomeUser() {
@@ -51,12 +22,7 @@ export function handleInputTask() {
   return document.getElementById("add-task-field").value;
 }
 
-export function resetForm() {
-  const inputText = document.getElementById("add-task-field");
-  document.querySelector(".button-update-task").style.display = "none";
-  document.querySelector(".button-add-task").style.display = "inline";
-  inputText.value = "";
-}
+
 
 // export function addTask() {
 //   const newId = Math.floor(Math.random() * 10000000) + 1;
@@ -71,13 +37,6 @@ export function resetForm() {
 //   renderTaskList();
 // }
 
-export function setItemToLocal(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-export function getTaskFromLocal() {
-  return getItemFromLocal("taskList") || [];
-}
 
 export function renderTaskList(chosenOption) {
   const currentUsername = getItemFromLocal("currentUser").username;

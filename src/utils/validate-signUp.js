@@ -27,7 +27,7 @@ import {
   validateHasSameValue,
   setMessageForElementByFieldName,
   successMessage
-} from "./helper";
+} from "./helper-validate";
 
 export function validateName(name) {
   if (!validateRequire('name', name) ||
