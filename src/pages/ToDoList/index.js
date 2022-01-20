@@ -15,45 +15,39 @@ import List from '../../components/List';
 
 const ToDoList = (props) => {
   const { changeLink, onClick } = props
-  function handleInputTask() {}
-  function addTask() {}
-  function updateTask() {}
-  function resetForm() {}
-  function handleFilterOption() {}
+  function handleInputTask() { }
+  function addTask() { }
+  function updateTask() { }
+  function resetForm() { }
+  function handleFilterOption() { }
   return (
-    <Container
-      children={
-        <>
-          <Header
-            headerName="header"
-            children={
-              <>
-                <HeaderLeft
-                  children={
-                    <>
-                      <Link linkName="Main" onClick={changeLink} />
-                      <Link linkName="Project" onClick={changeLink} />
-                      <Link linkName="User" onClick={changeLink} />
-                    </>
-                  }
-                />
-                <HeaderRight
-                children={
-                  <Button
-                    onClick={onClick}
-                    buttonName="Log out"
-                  />
-                }
-                />
-              </>
-            }
-          />
-          <ToDoContainer
-            children={
-              <>
-              <h1 id="welcome-message" class="welcome-message">Hello</h1>
-              <div className='todo-form'>
+    <Container>
+      <>
+        <Header
+          headerName="header"
+          children={
+            <>
+              <HeaderLeft>
                 <>
+                  <Link linkName="Main" onClick={changeLink} />
+                  <Link linkName="Project" onClick={changeLink} />
+                  <Link linkName="User" onClick={changeLink} />
+                </>
+              </HeaderLeft>
+              <HeaderRight>
+                <Button
+                  onClick={onClick}
+                  buttonName="Log out"
+                />
+              </HeaderRight>
+            </>
+          }
+        />
+        <ToDoContainer>
+          <>
+            <h1 id="welcome-message" class="welcome-message">Hello</h1>
+            <div className='todo-form'>
+              <>
                 <Input
                   inputId="add-task-field"
                   inputType="text"
@@ -74,32 +68,29 @@ const ToDoList = (props) => {
                   buttonName="Clear"
                   onClick={resetForm}
                 />
-                </>
-                </div>
-              
-              <Select
+              </>
+            </div>
+            <Select
               name="filter"
               selectId="filter"
               selectClass="filter"
               onChange={handleFilterOption()}
               children={
                 <>
-                <Option value="all" name="All" />
-                <Option value="done" name="Done" />
-                <Option value="undone" name="Undone" />
+                  <Option value="all" name="All" />
+                  <Option value="done" name="Done" />
+                  <Option value="undone" name="Undone" />
                 </>
               }
-              />
-              <List
+            />
+            <List
               listClass="todo-list"
               listId="todo-list"
-              />
-              </>
-            }
-          />
-        </>
-      }
-    />
+            />
+          </>
+        </ToDoContainer>
+      </>
+    </Container>
   )
 };
 

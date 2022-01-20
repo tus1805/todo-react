@@ -66,37 +66,36 @@ const SignIn = (props) => {
       formClassname="form-container"
       formName="signInForm"
       onSubmit={submitForm}
-      children={
-        <>
-          <h1>Sign In</h1>
-          <FormGroup
-            labelName="Username:"
-            groupId="username"
-            textClassName="error-message"
-            inputType="text"
-            handleInput={handleUsernameMessage}
-            value={data.username}
-            onChange={handleChange}
-          />
-          <FormGroup
-            labelName="Password:"
-            groupId="password"
-            textClassName="error-message"
-            inputType="password"
-            handleInput={handlePasswordMessage}
-            value={data.password}
-            onChange={handleChange}
-          />
-          <ButtonSubmit buttonName="Sign in" />
-          <CheckboxGroup
-            groupId="remember"
-            labelName="Remember account"
-            onChange={rememberCurrentUser}
-          />
-          <Link linkName="Sign up now" onClick={() => changeLink(1)} />
-        </>
-      }
-    />
+    >
+      <>
+        <h1>Sign In</h1>
+        <FormGroup
+          labelName="Username:"
+          groupId="username"
+          textClassName="error-message"
+          inputType="text"
+          handleInput={handleUsernameMessage}
+          value={data.username}
+          onChange={handleChange}
+        />
+        <FormGroup
+          labelName="Password:"
+          groupId="password"
+          textClassName="error-message"
+          inputType="password"
+          handleInput={handlePasswordMessage}
+          value={data.password}
+          onChange={handleChange}
+        />
+        <ButtonSubmit buttonName="Sign in" />
+        <CheckboxGroup
+          groupId="remember"
+          labelName="Remember account"
+          onChange={rememberCurrentUser}
+        />
+        <Link linkName="Sign up now" onClick={() => changeLink(1)} />
+      </>
+    </Form>
   );
 };
 
