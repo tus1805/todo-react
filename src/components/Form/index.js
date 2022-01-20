@@ -1,10 +1,10 @@
 import React from "react";
 
 const Form = (props) => {
-  const { formName, onSubmit, children } = props;
+  const { formClassname, formName, onSubmit, children } = props;
 
   return (
-    <div className="form-container">
+    <div className={formClassname}>
       <form name={formName} onSubmit={onSubmit}>
         {children}
       </form>

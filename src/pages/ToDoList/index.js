@@ -8,6 +8,10 @@ import Button from '../../components/Button';
 import ToDoContainer from '../../components/ToDoContainer';
 import Form from '../../components/Form';
 import Input from '../../components/Input';
+import Select from '../../components/Select';
+import Option from '../../components/Option';
+import List from '../../components/List';
+
 
 const ToDoList = (props) => {
   const { changeLink, onClick } = props
@@ -15,6 +19,7 @@ const ToDoList = (props) => {
   function addTask() {}
   function updateTask() {}
   function resetForm() {}
+  function handleFilterOption() {}
   return (
     <Container
       children={
@@ -47,8 +52,7 @@ const ToDoList = (props) => {
             children={
               <>
               <h1 id="welcome-message" class="welcome-message">Hello</h1>
-              <Form
-              children={
+              <div className='todo-form'>
                 <>
                 <Input
                   inputId="add-task-field"
@@ -71,7 +75,24 @@ const ToDoList = (props) => {
                   onClick={resetForm}
                 />
                 </>
+                </div>
+              
+              <Select
+              name="filter"
+              selectId="filter"
+              selectClass="filter"
+              onChange={handleFilterOption()}
+              children={
+                <>
+                <Option value="all" name="All" />
+                <Option value="done" name="Done" />
+                <Option value="undone" name="Undone" />
+                </>
               }
+              />
+              <List
+              listClass="todo-list"
+              listId="todo-list"
               />
               </>
             }

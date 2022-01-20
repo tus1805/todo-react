@@ -101,6 +101,7 @@ const SignUp = (props) => {
 
   return (
     <Form
+      formClassname="form-container"
       formName="signUpForm"
       onSubmit={submitForm}
       children={
