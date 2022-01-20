@@ -41,10 +41,10 @@ function App() {
 
   return (
     <div className="App">
-      <SignIn />
+      {/* <SignIn /> */}
       {/* <SignUp /> */}
       {/* {switchPage()} */}
-      {/* <ToDoList/> */}
+      <ToDoList/>
     </div>
   );
 }
