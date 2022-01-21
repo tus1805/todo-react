@@ -6,6 +6,7 @@ import { adminAccount } from "./constants/error-message-signIn";
 import { useEffect, useState } from "react";
 import { setItemWithLocal } from "./utils/process-data";
 import ProjectAdmin from "./pages/Project-admin";
+import UserAdmin from "./pages/User-admin";
 
 function App() {
   const [page, setPage] = useState(0);
@@ -46,7 +47,8 @@ function App() {
       {/* <SignUp /> */}
       {/* {switchPage()} */}
       {/* <ToDoList/> */}
-      <ProjectAdmin/>
+      {/* <ProjectAdmin/> */}
+      <UserAdmin/>
     </div>
   );
 }
