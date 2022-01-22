@@ -42,6 +42,8 @@ function App() {
         return <UserAdmin changeLink={changeLink} />;
       case 3:
         return <ToDoList changeLink={changeLink} />;
+      case 4:
+        return <ProjectAdmin changeLink={changeLink} />;
       default:
         return <ToDoList changeLink={changeLink} />;
     }
@@ -52,9 +54,9 @@ function App() {
       {/* <SignIn /> */}
       {/* <SignUp /> */}
       {/* {switchPage()} */}
-      {/* <ToDoList/> */}
+      <ToDoList />
       {/* <ProjectAdmin/> */}
-      <UserAdmin/>
+      {/* <UserAdmin/> */}
     </div>
   );
 }

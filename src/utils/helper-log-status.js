@@ -15,7 +15,7 @@ export function checkIsLogin() {
 }
 
 export function checkAdmin() {
-  const welcomeContent = document.getElementById("welcome-message");
+  // const welcomeContent = document.getElementById("welcome-message");
   const currentUser = getItemFromLocal("currentUser");
   if (currentUser.role !== "admin") {
     window.location.href = "/";
