@@ -11,45 +11,35 @@ import Button from '../../components/Button';
 const UserAdmin = (props) => {
   const {changeLink, onClick} =props
   return (
-    <Container
-      containerName="l-container"
-    >
-      <>
-        <Header
-          headerName="header"
-        >
-          <>
-            <HeaderLeft>
-              <>
-                <Link linkName="Main" onClick={changeLink} />
-                <Link linkName="Project" onClick={changeLink} />
-                <Link linkName="User" onClick={changeLink} />
-              </>
-            </HeaderLeft>
-            <HeaderRight>
-              <Button
-                onClick={onClick}
-                buttonName="Log out"
-              />
-            </HeaderRight>
-          </>
-        </Header>
-        <div className="user-admin-control">
-          <Table
-            tableClassName="user-info-table"
-            tableId="user-table"
-          >
-            <tr>
-              <th>Name</th>
-              <th>is Admin</th>
-            </tr>
-            <div class="control-option">
-              <button type="button" class="button-add-task" onclick="addUser()">Add user</button>
-            </div>
-          </Table>
-          <SignUp></SignUp>
-        </div>
-      </>
+    <Container containerName="l-container">
+      <Header>
+        <HeaderLeft>
+          <Link linkName="Main" onClick={changeLink} />
+          <Link linkName="Project" onClick={changeLink} />
+          <Link linkName="User" onClick={changeLink} />
+        </HeaderLeft>
+        <HeaderRight>
+          <Button
+            onClick={onClick}
+            buttonName="Log out"
+            buttonClass="logout-button"
+          />
+        </HeaderRight>
+      </Header>
+      <div className="user-admin-control">
+        <Table tableClassName="user-info-table" tableId="user-table">
+          <tr>
+            <th>Name</th>
+            <th>is Admin</th>
+          </tr>
+          <div class="control-option">
+            <button type="button" class="button-add-task" onclick="addUser()">
+              Add user
+            </button>
+          </div>
+        </Table>
+        <SignUp></SignUp>
+      </div>
     </Container>
   );
 };
