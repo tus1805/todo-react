@@ -59,6 +59,24 @@ const UserAdmin = (props) => {
     return userList;
   }
 
+  const ButtonContainer = (props) => {
+    const { userId } = props;
+    return (
+      <>
+        <Button
+          buttonClass="button-edit-task"
+          buttonName="Edit"
+          onClick={() => editUser(userId)}
+        />
+        <Button
+          buttonClass="button-delete-task"
+          buttonName="Delete"
+          // onClick={() => editUser(user.userId)}
+        />
+      </>
+    );
+  };
+
   return (
     <Container containerName="l-container">
       <Header>
@@ -90,16 +108,7 @@ const UserAdmin = (props) => {
                     <td>{user.role}</td>
                   </tr>
                   <tr className="user-table-option">
-                    <Button
-                      buttonClass="button-edit-task"
-                      buttonName="Edit"
-                      onClick={() => editUser(user.userId)}
-                    />
-                    <Button
-                      buttonClass="button-delete-task"
-                      buttonName="Delete"
-                      // onClick={() => editUser(user.userId)}
-                    />
+                    <ButtonContainer userId={user.userId} />
                   </tr>
                 </>
               ))}
