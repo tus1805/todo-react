@@ -1,4 +1,8 @@
-import { getElementValueById, setItemWithLocal } from "./process-data";
+import {
+  getElementValueById,
+  setItemWithLocal,
+  getDataFromLocalByKey,
+} from "./process-data";
 
 function checkLoginStatus() {
   if (!checkIsLogin()) {
@@ -16,47 +20,25 @@ window.addEventListener("load", () => {
 
 function checkIsLogin() {
   if (checkIsRemember()) {
-    return getItemFromLocal("isLogin");
+    return getDataFromLocalByKey("isLogin");
   }
   return JSON.parse(sessionStorage.getItem("isLogin"));
 }
 
 function checkIsRemember() {
-  return getItemFromLocal("isRemember");
+  return getDataFromLocalByKey("isRemember");
 }
 
 function getUserListFromLocal() {
-  return getItemFromLocal("userdata") || [];
+  return getDataFromLocalByKey("userdata") || [];
 }
 
 function checkAdmin() {
   const welcomeContent = document.getElementById("welcome-message");
-  const currentUser = getItemFromLocal("currentUser");
+  const currentUser = getDataFromLocalByKey("currentUser");
   if (currentUser.role !== "admin") {
     window.location.href = "/";
   }
-}
-
-function renderUserList() {
-  const userList = getUserListFromLocal().filter(
-    (value) => value.isDeleted !== true
-  );
-  let userListHTML = document.getElementById("user-table");
-  userListHTML.innerHTML = "";
-  userListHTML.innerHTML += `<tr>
-					<th>Name</th>
-					<th>Role</th>
-				</tr>`;
-  userList.forEach((user) => {
-    userListHTML.innerHTML += addUserContent(user.name, user.userId, user.role);
-  });
-}
-
-function addUserToList(name, role) {
-  const table = document.getElementById("user-table");
-  const row = table.insertRow(0);
-  row.insertCell(0).innerHTML = name;
-  row.insertCell(1).innerHTML = role;
 }
 
 function handleEditInput(idRef) {
@@ -76,39 +58,6 @@ function handleEditInput(idRef) {
   };
 }
 
-function addUser() {
-  // resetForm();
-  enableForm();
-}
-
-function editUser(userId) {
-  enableForm();
-  const userList = getUserListFromLocal();
-  userList.forEach((value, index) => {
-    if (value.userId === userId) {
-      document.getElementById("name").value = value.name;
-      document.getElementById("username").value = value.username;
-      document.getElementById("password").value = value.password;
-      document.getElementById("confirmPassword").value = value.confirmPassword;
-      document.getElementById("age").value = value.age;
-      if (value.gender === "male") {
-        document.getElementById("male").checked = true;
-      } else if (value.gender === "female") {
-        document.getElementById("female").checked = true;
-      }
-      if (value.role === "admin") {
-        document.getElementById("setAdmin").checked = true;
-      } else {
-        document.getElementById("setAdmin").checked = false;
-      }
-      localStorage.setItem("ref", value.userId);
-    }
-  });
-  document.querySelector(".button-update-user").style.display = "inline";
-  document.querySelector(".button-add-user").style.display = "none";
-  return userList;
-}
-
 function cancelEdit() {
   // resetForm();
   disableForm();
@@ -116,7 +65,7 @@ function cancelEdit() {
 
 function updateUser() {
   const idRef = JSON.parse(localStorage.getItem("ref"));
-  const userList = getItemFromLocal("userdata") || [];
+  const userList = getDataFromLocalByKey("userdata") || [];
   const {
     userId,
     name,
@@ -141,7 +90,7 @@ function updateUser() {
   }); // ez clap
   console.log(userList);
   setItemWithLocal("userdata", userList);
-  renderUserList();
+  // renderUserList();
   // resetForm();
   disableForm();
 }
@@ -154,31 +103,11 @@ function deleteUser(userId) {
     }
   });
   setItemWithLocal("userdata", userList);
-  renderUserList();
-}
-
-function addUserContent(name, userId, role) {
-  return `
-      <div class="user-table">
-      <span class="user-table-username">
-      <tr class="user-table">
-      <td>${name}</td>
-      <td>${role}</td>
-      </tr>
-      </span>
-      <span class="user-table-option">
-      <button class="button-edit-task" onclick="editUser(${userId})">Edit</button>
-      <button class="button-delete-task" onclick="deleteUser(${userId})">Delete</button>
-      </span>
-      </div>`;
-}
-
-function getItemFromLocal(key) {
-  return JSON.parse(localStorage.getItem(key));
+  // renderUserList();
 }
 
 window.addEventListener("load", () => {
-  renderUserList();
+  // renderUserList();
   disableForm();
 });
 
@@ -197,24 +126,6 @@ export function disableForm() {
     elements[i].disabled = true;
   }
 } //
-
-function getFormData() {
-  const newId = Math.floor(Math.random() * 10000000) + 1;
-  const genderValue = document.querySelector(
-    'input[name="gender"]:checked'
-  ).value;
-  const roleValue = checkRole();
-  return {
-    userId: newId,
-    name: getElementValueById("name"),
-    username: getElementValueById("username"),
-    password: getElementValueById("password"),
-    confirmPassword: getElementValueById("confirmPassword"),
-    age: getElementValueById("age"),
-    gender: genderValue,
-    role: roleValue, //
-  };
-}
 
 function checkRole() {
   const isAdmin = document.getElementById("setAdmin").checked;
