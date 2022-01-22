@@ -27,7 +27,10 @@ const UserAdmin = (props) => {
     changeLink(0);
   }
 
+  function addUser() {}
+
   function editUser(userId) {
+    console.log("edit");
     setIsDisable(false);
     const userList = getDataFromLocalByKey("userdata");
     userList.forEach((value, index) => {
@@ -75,41 +78,39 @@ const UserAdmin = (props) => {
       <div className="user-admin-control">
         <div className="user-info-table">
           <Table tableId="user-table">
-            <tr>
-              <th>Name</th>
-              <th>Role</th>
-            </tr>
-            {userList.map((user) => (
-              <>
-                <tr className="user-table" key={user.userId}>
-                  <td>{user.name}</td>
-                  <td>{user.role}</td>
-                </tr>
-                <span className="user-table-option">
-                  <button
-                    className="button-edit-task"
-                    onclick={() => editUser(user.userId)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="button-delete-task"
-                    onclick="deleteUser(${userId})"
-                  >
-                    Delete
-                  </button>
-                </span>
-              </>
-            ))}
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td>Role</td>
+              </tr>
+              {userList.map((user) => (
+                <>
+                  <tr className="user-table" key={user.userId}>
+                    <td>{user.name}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                  <tr className="user-table-option">
+                    <Button
+                      buttonClass="button-edit-task"
+                      buttonName="Edit"
+                      onClick={() => editUser(user.userId)}
+                    />
+                    <Button
+                      buttonClass="button-delete-task"
+                      buttonName="Delete"
+                      // onClick={() => editUser(user.userId)}
+                    />
+                  </tr>
+                </>
+              ))}
+            </tbody>
           </Table>
           <div className="control-option">
-            <button
-              type="button"
-              className="button-add-task"
-              onclick="addUser()"
-            >
-              Add user
-            </button>
+            <Button
+              buttonName="Add user"
+              buttonClass="button-add-task"
+              onClick={addUser}
+            />
           </div>
         </div>
         <SignUp></SignUp>

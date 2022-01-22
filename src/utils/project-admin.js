@@ -49,7 +49,7 @@ export function renderProjectList(chosenOption) {
   const projectList = handleFilter(userProjectList, chosenOption)
   let projectHTML = document.getElementById("project-list");
   projectHTML.innerHTML = '';
-  projectIndexDone = [];
+  let projectIndexDone = [];
   projectList.forEach((value, index) => {
     projectHTML.innerHTML += projectItemContent(value.projectName, value.projectId);
     if (value.isDone === true) {
