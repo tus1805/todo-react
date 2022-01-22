@@ -1,8 +1,9 @@
+import { getElementValueById, setItemWithLocal } from "./process-data";
 
 function checkLoginStatus() {
   if (!checkIsLogin()) {
-    alert('Please sign in first');
-    window.location.href = "/sign-in"
+    alert("Please sign in first");
+    window.location.href = "/sign-in";
     return;
   }
   localStorage.removeItem("currentProject");
@@ -10,8 +11,8 @@ function checkLoginStatus() {
 }
 
 window.addEventListener("load", () => {
-  checkLoginStatus();
-})
+  // checkLoginStatus();
+});
 
 function checkIsLogin() {
   if (checkIsRemember()) {
@@ -24,32 +25,22 @@ function checkIsRemember() {
   return getItemFromLocal("isRemember");
 }
 
-function doLogOut() {
-  localStorage.setItem("isLogin", false);
-  sessionStorage.setItem("isLogin", false);
-  localStorage.removeItem("currentUser");
-  window.location.href = "/sign-in"
-  return;
-}
-
-function setItemToLocal(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-function getUserListFromLocal(){
+function getUserListFromLocal() {
   return getItemFromLocal("userdata") || [];
 }
 
 function checkAdmin() {
-  const welcomeContent = document.getElementById('welcome-message');
-  const currentUser = getItemFromLocal('currentUser');
+  const welcomeContent = document.getElementById("welcome-message");
+  const currentUser = getItemFromLocal("currentUser");
   if (currentUser.role !== "admin") {
-    window.location.href = "/"
+    window.location.href = "/";
   }
 }
 
-function renderUserList() { 
-  const userList = getUserListFromLocal().filter(value => value.isDeleted !== true);
+function renderUserList() {
+  const userList = getUserListFromLocal().filter(
+    (value) => value.isDeleted !== true
+  );
   let userListHTML = document.getElementById("user-table");
   userListHTML.innerHTML = "";
   userListHTML.innerHTML += `<tr>
@@ -58,7 +49,7 @@ function renderUserList() {
 				</tr>`;
   userList.forEach((user) => {
     userListHTML.innerHTML += addUserContent(user.name, user.userId, user.role);
-  })
+  });
 }
 
 function addUserToList(name, role) {
@@ -68,7 +59,7 @@ function addUserToList(name, role) {
   row.insertCell(1).innerHTML = role;
 }
 
-function handleEditInput(idRef){
+function handleEditInput(idRef) {
   const genderValue = document.querySelector(
     'input[name="gender"]:checked'
   ).value;
@@ -81,31 +72,31 @@ function handleEditInput(idRef){
     confirmPassword: getElementValueById("confirmPassword"),
     age: getElementValueById("age"),
     gender: genderValue,
-    role: roleValue,//
-  }
+    role: roleValue, //
+  };
 }
 
-function addUser(){
-  resetForm();
+function addUser() {
+  // resetForm();
   enableForm();
 }
 
-function editUser(userId){
+function editUser(userId) {
   enableForm();
   const userList = getUserListFromLocal();
   userList.forEach((value, index) => {
-    if (value.userId === userId){
+    if (value.userId === userId) {
       document.getElementById("name").value = value.name;
       document.getElementById("username").value = value.username;
       document.getElementById("password").value = value.password;
       document.getElementById("confirmPassword").value = value.confirmPassword;
       document.getElementById("age").value = value.age;
-      if (value.gender === "male"){
+      if (value.gender === "male") {
         document.getElementById("male").checked = true;
-      } else if (value.gender === "female"){
+      } else if (value.gender === "female") {
         document.getElementById("female").checked = true;
       }
-      if(value.role === "admin"){
+      if (value.role === "admin") {
         document.getElementById("setAdmin").checked = true;
       } else {
         document.getElementById("setAdmin").checked = false;
@@ -118,17 +109,26 @@ function editUser(userId){
   return userList;
 }
 
-function cancelEdit(){
-  resetForm();
+function cancelEdit() {
+  // resetForm();
   disableForm();
 }
 
-function updateUser(){
+function updateUser() {
   const idRef = JSON.parse(localStorage.getItem("ref"));
   const userList = getItemFromLocal("userdata") || [];
-  const { userId, name, username, password, confirmPassword, age, gender, role} = handleEditInput(idRef);
+  const {
+    userId,
+    name,
+    username,
+    password,
+    confirmPassword,
+    age,
+    gender,
+    role,
+  } = handleEditInput(idRef);
   userList.forEach((value, index) => {
-    if (value.userId === idRef){
+    if (value.userId === idRef) {
       value.userId = userId;
       value.name = name;
       value.username = username;
@@ -138,22 +138,22 @@ function updateUser(){
       value.role = role;
       value.gender = gender;
     }
-  }) // ez clap
-  console.log(userList)
-  setItemToLocal("userdata", userList);
+  }); // ez clap
+  console.log(userList);
+  setItemWithLocal("userdata", userList);
   renderUserList();
-  resetForm();
+  // resetForm();
   disableForm();
 }
 
-function deleteUser(userId){
+function deleteUser(userId) {
   const userList = getUserListFromLocal();
   userList.forEach((value, index) => {
-    if (value.userId === userId){
+    if (value.userId === userId) {
       value.isDeleted = true;
     }
   });
-  setItemToLocal("userdata", userList);
+  setItemWithLocal("userdata", userList);
   renderUserList();
 }
 
@@ -170,7 +170,7 @@ function addUserContent(name, userId, role) {
       <button class="button-edit-task" onclick="editUser(${userId})">Edit</button>
       <button class="button-delete-task" onclick="deleteUser(${userId})">Delete</button>
       </span>
-      </div>`
+      </div>`;
 }
 
 function getItemFromLocal(key) {
@@ -180,23 +180,23 @@ function getItemFromLocal(key) {
 window.addEventListener("load", () => {
   renderUserList();
   disableForm();
-})
+});
 
-function enableForm() {
+export function enableForm() {
   const form = document.getElementById("signUpForm");
   const elements = form.elements;
   for (var i = 0, len = elements.length; i < len; ++i) {
     elements[i].disabled = false;
   }
-}//
+}
 
-function disableForm() {
+export function disableForm() {
   const form = document.getElementById("signUpForm");
   const elements = form.elements;
   for (var i = 0, len = elements.length; i < len; ++i) {
     elements[i].disabled = true;
   }
-}//
+} //
 
 function getFormData() {
   const newId = Math.floor(Math.random() * 10000000) + 1;
@@ -212,7 +212,7 @@ function getFormData() {
     confirmPassword: getElementValueById("confirmPassword"),
     age: getElementValueById("age"),
     gender: genderValue,
-    role: roleValue,//
+    role: roleValue, //
   };
 }
 
@@ -222,6 +222,4 @@ function checkRole() {
     return "admin";
   }
   return "user";
-}//
-
-
+} //

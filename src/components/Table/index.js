@@ -1,12 +1,12 @@
 import React from 'react';
 
 const Table = (props) => {
-  const {tableClassName, tableId, children} = props
-  return <div className={tableClassName}>
-    <table id={tableId}>
-      {children}
-    </table>
-  </div>;
+  const { tableId, children } = props;
+  return (
+    <>
+      <table id={tableId}>{children}</table>
+    </>
+  );
 };
 
 export default Table;

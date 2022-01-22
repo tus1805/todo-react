@@ -1,9 +1,16 @@
-import { checkAdmin, checkIsLogin, getItemFromLocal, setItemToLocal, getTaskFromLocal, resetForm} from "./helper-verycool";
+import {
+  checkAdmin,
+  checkIsLogin,
+  getItemFromLocal,
+  setItemToLocal,
+  getTaskFromLocal,
+  resetForm,
+} from "./helper-log-status";
 
 export function checkLoginStatus() {
   if (!checkIsLogin()) {
-    alert('Please sign in first');
-    window.location.href = "./sign-in"
+    alert("Please sign in first");
+    window.location.href = "./sign-in";
     return;
   }
   welcomeUser();
@@ -12,17 +19,15 @@ export function checkLoginStatus() {
 }
 
 export function welcomeUser() {
-  const welcomeContent = document.getElementById('welcome-message');
-  const currentUser = getItemFromLocal('currentUser');
-  welcomeContent.innerHTML = `Hello ${currentUser.name}, welcome to your Todolist`
+  const welcomeContent = document.getElementById("welcome-message");
+  const currentUser = getItemFromLocal("currentUser");
+  welcomeContent.innerHTML = `Hello ${currentUser.name}, welcome to your Todolist`;
 }
 
 //TO DO list
 export function handleInputTask() {
   return document.getElementById("add-task-field").value;
 }
-
-
 
 // export function addTask() {
 //   const newId = Math.floor(Math.random() * 10000000) + 1;
@@ -37,26 +42,27 @@ export function handleInputTask() {
 //   renderTaskList();
 // }
 
-
 export function renderTaskList(chosenOption) {
   const currentUsername = getItemFromLocal("currentUser").username;
-  const userTaskList = getTaskFromLocal().filter(task => task.username === currentUsername).filter(value => value.isDeleted !== true);
-  const taskList = handleFilter(userTaskList, chosenOption)
+  const userTaskList = getTaskFromLocal()
+    .filter((task) => task.username === currentUsername)
+    .filter((value) => value.isDeleted !== true);
+  const taskList = handleFilter(userTaskList, chosenOption);
   let taskHTML = document.getElementById("todo-list");
-  taskHTML.innerHTML = '';
+  taskHTML.innerHTML = "";
   const taskIndexDone = [];
   taskList.forEach((value, index) => {
-      taskHTML.innerHTML += taskItemContent(value.taskName, value.taskId);
+    taskHTML.innerHTML += taskItemContent(value.taskName, value.taskId);
     if (value.isDone === true) {
       taskIndexDone.push(index);
     }
-  })
+  });
   checkDone(taskIndexDone);
 }
 export function checkDone(array) {
-  array.forEach(value => {
+  array.forEach((value) => {
     document.querySelectorAll("#checkbox")[value].checked = true;
-  })
+  });
 }
 
 export function taskItemContent(taskName, id) {
@@ -69,7 +75,7 @@ export function taskItemContent(taskName, id) {
       <button class="button-edit-task" onclick="editTask(${id})">Edit</button>
       <button class="button-delete-task" onclick="deleteTask(${id})">Delete</button>
       </span>
-      </div>`
+      </div>`;
 }
 
 export function checkIsDone(key) {
@@ -78,8 +84,8 @@ export function checkIsDone(key) {
     if (value.taskId === key) {
       value.isDone = !value.isDone;
     }
-  })
-  setItemToLocal("taskList", taskList)
+  });
+  setItemToLocal("taskList", taskList);
 }
 
 export function deleteTask(idTask) {
@@ -98,13 +104,12 @@ export function editTask(idTask) {
   const editTask = taskList.forEach((value, index) => {
     if (value.taskId === idTask) {
       document.getElementById("add-task-field").value = value.taskName;
-      setItemToLocal("ref", value.taskId)
+      setItemToLocal("ref", value.taskId);
     }
-  }
-  );
+  });
   document.querySelector(".button-update-task").style.display = "inline";
   document.querySelector(".button-add-task").style.display = "none";
-  return editTask
+  return editTask;
 }
 
 // export function updateTask() {
@@ -130,11 +135,11 @@ export function editTask(idTask) {
 
 export function handleFilter(taskList, chosenOption) {
   if (chosenOption === "done") {
-    return taskList.filter(value => value.isDone === true);
+    return taskList.filter((value) => value.isDone === true);
   } else if (chosenOption === "undone") {
-    return taskList.filter(value => value.isDone === false);
+    return taskList.filter((value) => value.isDone === false);
   }
-  return taskList
+  return taskList;
 }
 
 // window.addEventListener("load", () => {

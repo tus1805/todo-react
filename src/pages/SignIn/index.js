@@ -9,12 +9,12 @@ import {
   validateUsername,
   validatePassword,
   getCurrentUserInfo,
-  getElementValueById,
 } from "../../utils/validate-signIn";
 import {
   setItemWithLocal,
   setItemWithSession,
   getDataFromLocalByKey,
+  getElementValueById,
 } from "../../utils/process-data";
 
 const SignIn = (props) => {
@@ -29,7 +29,7 @@ const SignIn = (props) => {
     }
     setData({ username: "", password: "" });
     alert("Login successfully");
-    window.location.href = "/";
+    changeLink(3);
     const isRemember = getDataFromLocalByKey("isRemember");
     isRemember
       ? setItemWithLocal("isLogin", true)
@@ -38,6 +38,7 @@ const SignIn = (props) => {
 
   function validateForm() {
     const { username, password } = data;
+    // rememberCurrentUser();
     if (!validateUsername(username) || !validatePassword(username, password)) {
       return false;
     }

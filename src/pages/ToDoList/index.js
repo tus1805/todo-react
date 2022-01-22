@@ -10,7 +10,11 @@ import Select from '../../components/Select';
 import Option from '../../components/Option';
 import List from '../../components/List';
 import { renderTaskList} from '../../utils/todo-list';
-import { getItemFromLocal, getTaskFromLocal, setItemToLocal } from "../../utils/helper-verycool";
+import {
+  getItemFromLocal,
+  getTaskFromLocal,
+  setItemToLocal,
+} from "../../utils/helper-log-status";
 
 const ToDoList = (props) => {
   const { changeLink, onClick } = props
@@ -83,7 +87,7 @@ const ToDoList = (props) => {
         <Container
           containerName="todo-container">
           <>
-            <h1 id="welcome-message" class="welcome-message">Hello</h1>
+            <h1 id="welcome-message" className="welcome-message">Hello</h1>
             <div className='todo-form'>
               <>
                 <Input

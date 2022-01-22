@@ -24,13 +24,9 @@ const ProjectAdmin = (props) => {
   function getSelectedUser() { };
 
   return (
-    <Container
-      containerName="l-container"
-    >
+    <Container containerName="l-container">
       <>
-        <Header
-          headerName="header"
-        >
+        <Header headerName="header">
           <>
             <HeaderLeft>
               <>
@@ -40,18 +36,16 @@ const ProjectAdmin = (props) => {
               </>
             </HeaderLeft>
             <HeaderRight>
-              <Button
-                onClick={onClick}
-                buttonName="Log out"
-              />
+              <Button onClick={onClick} buttonName="Log out" />
             </HeaderRight>
           </>
         </Header>
-        <Container
-          containerName="todo-container">
+        <Container containerName="todo-container">
           <>
-            <h1 id="welcome-message" class="welcome-message">Project Management</h1>
-            <div className='todo-form'>
+            <h1 id="welcome-message" className="welcome-message">
+              Project Management
+            </h1>
+            <div className="todo-form">
               <>
                 <Input
                   inputId="add-task-field"
@@ -89,9 +83,7 @@ const ProjectAdmin = (props) => {
                 </>
               </Select>
             </div>
-            <Container
-              containerName="project-control-container"
-            >
+            <Container containerName="project-control-container">
               <List className="todo-list">
                 <h3>Project list</h3>
                 <List className="project-list" />
@@ -100,7 +92,9 @@ const ProjectAdmin = (props) => {
                 <h3 id="task-project-name">Task list in Project</h3>
                 <div className="todo-form">
                   <Select selectId="tasks"></Select>
-                  <Button buttonClass="button-add-task" onClick={addTask}>Add</Button>
+                  <Button buttonClass="button-add-task" onClick={addTask}>
+                    Add
+                  </Button>
                 </div>
                 <List listId="task-list"></List>
               </List>
@@ -108,7 +102,9 @@ const ProjectAdmin = (props) => {
                 <h3 id="user-project-name">User list in Project</h3>
                 <div className="todo-form">
                   <Select selectId="users" onChange={getSelectedUser}></Select>
-                  <Button buttonClass="button-add-user" onClick={addUser}>Add</Button>
+                  <Button buttonClass="button-add-user" onClick={addUser}>
+                    Add
+                  </Button>
                 </div>
                 <List listId="user-list"></List>
               </List>

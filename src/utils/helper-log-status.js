@@ -1,8 +1,9 @@
+// import { setItemWithSession } from "./process-data";
+
 export function doLogOut() {
   localStorage.setItem("isLogin", false);
   sessionStorage.setItem("isLogin", false);
   localStorage.removeItem("currentUser");
-  window.location.href = "/sign-in"
   return;
 }
 
@@ -14,10 +15,10 @@ export function checkIsLogin() {
 }
 
 export function checkAdmin() {
-  const welcomeContent = document.getElementById('welcome-message');
-  const currentUser = getItemFromLocal('currentUser');
+  const welcomeContent = document.getElementById("welcome-message");
+  const currentUser = getItemFromLocal("currentUser");
   if (currentUser.role !== "admin") {
-    window.location.href = "/"
+    window.location.href = "/";
   }
 }
 

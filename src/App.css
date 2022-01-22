@@ -7,8 +7,8 @@ body {
   margin: 0;
 }
 
-#root {
-  width: 100%;
+.App {
+  width: 100vw;
 }
 
 .form-container {
@@ -255,6 +255,7 @@ input#checkbox[type=checkbox]:checked + label{
   padding: 5px 10px;
   border-radius: 5px;
   font-weight: bold;
+  margin-right: 5px;
 }
 .button-delete-task {
   background: red;

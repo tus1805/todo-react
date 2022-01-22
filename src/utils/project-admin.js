@@ -164,7 +164,7 @@ export function handleFilter(projectList, chosenOption) {
 }
 
 window.addEventListener("load", () => {
-  checkLoginStatus();
+  // checkLoginStatus();
 })
 
 //Project control

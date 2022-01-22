@@ -30,14 +30,20 @@ function App() {
     setPage(pageNum);
   }
 
+  console.log("chuyển page", page);
+
   function switchPage() {
     switch (page) {
       case 0:
         return <SignIn changeLink={changeLink} />;
       case 1:
         return <SignUp changeLink={changeLink} />;
+      case 2:
+        return <UserAdmin changeLink={changeLink} />;
+      case 3:
+        return <ToDoList changeLink={changeLink} />;
       default:
-        return <SignIn changeLink={changeLink} />;
+        return <ToDoList changeLink={changeLink} />;
     }
   }
 

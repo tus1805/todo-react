@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from "../constants/error-message-signIn";
-import { getDataFromLocalStorage, setItemWithLocal } from "./process-data";
+import { getDataFromLocalByKey, setItemWithLocal } from "./process-data";
 
 export function validateUsername(username) {
   if (
@@ -35,14 +35,11 @@ export function validateExistUsename(username) {
 }
 
 export function getCurrentUserInfo(username) {
-  return getDataFromLocalStorage().filter(
+  return getDataFromLocalByKey("userdata").filter(
     (value) => value.username === username
   );
 }
 
-export function getElementValueById(id) {
-  return document.getElementById(id).value;
-}
 
 function setMessageForElementByFieldName(fieldName, message) {
   const id = `${fieldName}-error-message`;

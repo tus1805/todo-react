@@ -12,7 +12,8 @@ import {
   validateConfirmPassword,
   validateAge,
 } from "../../utils/validate-signUp";
-import { resetForm, getElementValueById } from "../../utils/helper-validate";
+import { getElementValueById } from "../../utils/helper-validate";
+import { setItemWithLocal } from "../../utils/process-data";
 
 const SignUp = (props) => {
   const { changeLink } = props;
@@ -38,9 +39,18 @@ const SignUp = (props) => {
     if (!validateForm()) {
       return;
     }
-    resetForm();
+    setData({
+      userId: "",
+      name: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+      age: "",
+      gender: "",
+      role: "",
+    });
     existUserData.push(userData);
-    localStorage.setItem("userdata", JSON.stringify(existUserData));
+    setItemWithLocal("userdata", existUserData);
     alert(NOTI_MESSAGE.SUCCESS);
     changeLink(0);
   }
@@ -103,7 +113,9 @@ const SignUp = (props) => {
     <Form
       formClassname="form-container"
       formName="signUpForm"
-      onSubmit={submitForm}>
+      onSubmit={submitForm}
+      formId="signUpForm"
+    >
       <>
         <h1>Sign Up</h1>
         <FormGroup
