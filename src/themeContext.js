@@ -10,8 +10,7 @@ class ThemeContextProvider extends Component {
     this.setState(prevState => {
       console.log(prevState.theme)
       return {
-        
-        theme: prevState.theme === "Day" ? "Night" : "Day"
+        theme: prevState.theme === "Day" ? "Night" : "Day",
       };
     });
   };
