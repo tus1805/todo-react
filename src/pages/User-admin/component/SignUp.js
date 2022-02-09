@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
-import ButtonSubmit from "../../components/ButtonSubmit";
-import Form from "../../components/Form";
-import FormGroup from "../../components/FormGroup";
-import RadioGroup from "../../components/RadioButtonGroup";
-import RadioButton from "../../components/RadioButton";
-import { NOTI_MESSAGE } from "../../constants/validate";
+import ButtonSubmit from "../../../components/ButtonSubmit";
+import Form from "../../../components/Form";
+import FormGroup from "../../../components/FormGroup";
+import RadioGroup from "../../../components/RadioButtonGroup";
+import RadioButton from "../../../components/RadioButton";
+import { NOTI_MESSAGE } from "../../../constants/validate";
 import {
   validateName,
   validateUsername,
   validatePassword,
   validateConfirmPassword,
   validateAge,
-} from "../../utils/validate-signUp";
-import { getElementValueById } from "../../utils/helper-validate";
-import { setItemWithLocal } from "../../utils/process-data";
+} from "../../../utils/validate-signUp";
+import { getElementValueById } from "../../../utils/helper-validate";
+import { setItemWithLocal } from "../../../utils/process-data";
+import CheckboxGroup from "../../../components/CheckboxGroup";
 
-const SignUp = (props) => {
+const SignUpAdmin = (props) => {
   const { changeLink } = props;
   const [data, setData] = useState({
     userId: "",
@@ -108,6 +109,7 @@ const SignUp = (props) => {
     const age = getElementValueById("age");
     validateAge(age);
   }
+  function setAdmin(){}
 
   return (
     <Form
@@ -186,10 +188,16 @@ const SignUp = (props) => {
             }
           />
         </div>
+        <CheckboxGroup
+          groupId="setAdmin"
+          labelName="Set admin"
+          onChange={setAdmin}
+        >
+        </CheckboxGroup>
         <ButtonSubmit buttonName="Sign up" />
       </>
     </Form>
   );
 };
 
-export default SignUp;
+export default SignUpAdmin;

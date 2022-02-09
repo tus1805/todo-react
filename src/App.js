@@ -54,9 +54,9 @@ function App() {
       {/* <SignIn /> */}
       {/* <SignUp /> */}
       {/* {switchPage()} */}
-      <ToDoList />
+      {/* <ToDoList /> */}
       {/* <ProjectAdmin/> */}
-      {/* <UserAdmin/> */}
+      <UserAdmin/>
     </div>
   );
 }

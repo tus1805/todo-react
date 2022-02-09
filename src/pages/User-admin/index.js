@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Container from "../../components/Container";
 import Table from "../../components/Table";
-import SignUp from "../SignUp";
 import Header from "../../components/Header";
 import HeaderLeft from "../../components/Header-Left";
 import HeaderRight from "../../components/Header-Right";
@@ -10,6 +9,7 @@ import Button from "../../components/Button";
 import { doLogOut } from "../../utils/helper-log-status";
 import { getDataFromLocalByKey } from "../../utils/process-data";
 import { enableForm, disableForm } from "../../utils/user-admin";
+import SignUpAdmin from "./component/SignUp.js";
 
 const UserAdmin = (props) => {
   const { changeLink } = props;
@@ -122,7 +122,7 @@ const UserAdmin = (props) => {
             />
           </div>
         </div>
-        <SignUp></SignUp>
+        <SignUpAdmin></SignUpAdmin>
       </div>
     </Container>
   );
