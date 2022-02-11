@@ -79,20 +79,6 @@ const UserAdmin = (props) => {
 
   return (
     <Container containerName="l-container">
-      <Header>
-        <HeaderLeft>
-          <Link linkName="Main" onClick={changeLink} />
-          <Link linkName="Project" onClick={changeLink} />
-          <Link linkName="User" onClick={changeLink} />
-        </HeaderLeft>
-        <HeaderRight>
-          <Button
-            onClick={handleLogOut}
-            buttonName="Log out"
-            buttonClass="logout-button"
-          />
-        </HeaderRight>
-      </Header>
       <div className="user-admin-control">
         <div className="user-info-table">
           <Table tableId="user-table">

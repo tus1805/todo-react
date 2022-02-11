@@ -1,12 +1,12 @@
 import React from "react";
 
 const Link = (props) => {
-  const { linkName, onClick } = props;
+  const { linkName, link } = props;
 
   return (
-    <p className="linkpath" onClick={onClick}>
+    <a className="linkpath" href={link}>
       {linkName}
-    </p>
+    </a>
   );
 };
 

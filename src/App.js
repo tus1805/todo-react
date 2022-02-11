@@ -7,6 +7,13 @@ import { useEffect, useState } from "react";
 import { setItemWithLocal } from "./utils/process-data";
 import ProjectAdmin from "./pages/Project-admin";
 import UserAdmin from "./pages/User-admin";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Header from "./components/Header";
+import HeaderLeft from "./components/Header-Left";
+import HeaderRight from "./components/Header-Right";
+import Button from "./components/Button";
+import { doLogOut } from "./utils/helper-log-status";
+import Layout from "./components/Layout";
 
 function App() {
   const [page, setPage] = useState(0);
@@ -56,7 +63,16 @@ function App() {
       {/* {switchPage()} */}
       {/* <ToDoList /> */}
       {/* <ProjectAdmin/> */}
-      <UserAdmin/>
+      {/* <UserAdmin /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<ToDoList />} />
+            <Route path="project-admin" element={<ProjectAdmin />} />
+            <Route path="user-admin" element={<UserAdmin />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

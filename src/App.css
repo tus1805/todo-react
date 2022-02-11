@@ -32,13 +32,13 @@ body {
   justify-content: center;
 }
 
-.form-container .linkpath {
+.form-container a {
   margin: 10px;
   color: #00f3ff;
   font-weight: bold;
   text-decoration: none;
 }
-.form-container .linkpath:hover {
+.form-container a:hover {
   text-decoration: underline;
   transition: 0.3s;
   cursor: pointer;
@@ -122,18 +122,18 @@ input#username {
   margin: 10px;
   align-items: center
 }
-.header .linkpath {
+.header a {
   text-decoration: none;
   color: white;
   padding: 10px;
   font-size: 1.5rem;
   display: inline-block;
 }
-.header .linkpath:focus {
+.header a:focus {
   text-decoration: none;
   color: white;
 }
-.header .linkpath:hover {
+.header a:hover {
   text-decoration: underline;
 }
 

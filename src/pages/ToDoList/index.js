@@ -74,20 +74,6 @@ const ToDoList = (props) => {
 
   return (
     <Container containerName="l-container">
-      <Header headerName="header">
-        <HeaderLeft>
-          <Link linkName="Main" onClick={changeLink} />
-          <Link linkName="Project" onClick={changeLink} />
-          <Link linkName="User" onClick={changeLink} />
-        </HeaderLeft>
-        <HeaderRight>
-          <Button
-            onClick={handleLogOut}
-            buttonName="Log out"
-            buttonClass="logout-button"
-          />
-        </HeaderRight>
-      </Header>
       <Container containerName="todo-container">
         <h1 id="welcome-message" className="welcome-message">
           Hello
