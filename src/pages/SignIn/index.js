@@ -3,7 +3,8 @@ import ButtonSubmit from "../../components/ButtonSubmit";
 import CheckboxGroup from "../../components/CheckboxGroup";
 import Form from "../../components/Form";
 import FormGroup from "../../components/FormGroup";
-import Link from "../../components/Link";
+import { Link } from "react-router-dom";
+// import Link from "../../components/Link";
 import {
   rememberCurrentUser,
   validateUsername,
@@ -94,7 +95,7 @@ const SignIn = (props) => {
           labelName="Remember account"
           onChange={rememberCurrentUser}
         />
-        <Link linkName="Sign up now" onClick={() => changeLink(1)} />
+        <Link to="/sign-up">Sign up now</Link>
       </>
     </Form>
   );

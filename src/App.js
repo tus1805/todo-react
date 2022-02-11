@@ -7,12 +7,7 @@ import { useEffect, useState } from "react";
 import { setItemWithLocal } from "./utils/process-data";
 import ProjectAdmin from "./pages/Project-admin";
 import UserAdmin from "./pages/User-admin";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Header from "./components/Header";
-import HeaderLeft from "./components/Header-Left";
-import HeaderRight from "./components/Header-Right";
-import Button from "./components/Button";
-import { doLogOut } from "./utils/helper-log-status";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 
 function App() {
@@ -29,41 +24,8 @@ function App() {
     setAdminAccount();
   }, []);
 
-  useEffect(() => {
-    switchPage();
-  }, [page]);
-
-  function changeLink(pageNum) {
-    setPage(pageNum);
-  }
-
-  console.log("chuyển page", page);
-
-  function switchPage() {
-    switch (page) {
-      case 0:
-        return <SignIn changeLink={changeLink} />;
-      case 1:
-        return <SignUp changeLink={changeLink} />;
-      case 2:
-        return <UserAdmin changeLink={changeLink} />;
-      case 3:
-        return <ToDoList changeLink={changeLink} />;
-      case 4:
-        return <ProjectAdmin changeLink={changeLink} />;
-      default:
-        return <ToDoList changeLink={changeLink} />;
-    }
-  }
-
   return (
     <div className="App">
-      {/* <SignIn /> */}
-      {/* <SignUp /> */}
-      {/* {switchPage()} */}
-      {/* <ToDoList /> */}
-      {/* <ProjectAdmin/> */}
-      {/* <UserAdmin /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -71,6 +33,8 @@ function App() {
             <Route path="project-admin" element={<ProjectAdmin />} />
             <Route path="user-admin" element={<UserAdmin />} />
           </Route>
+          <Route path="sign-in" element={<SignIn />} />
+          <Route path="sign-up" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </div>

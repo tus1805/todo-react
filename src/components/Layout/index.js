@@ -1,8 +1,13 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { doLogOut } from "../../utils/helper-log-status";
 import Button from "../Button";
 
-const Layout = (props) => {
+const Layout = () => {
+  const navigate = useNavigate();
+  function handleLogOut() {
+    navigate("/sign-in");
+    doLogOut();
+  }
   return (
     <div>
       <div className="header">
@@ -12,7 +17,7 @@ const Layout = (props) => {
           <Link to="user-admin">User</Link>
         </nav>
         <Button
-          onClick={doLogOut}
+          onClick={handleLogOut}
           buttonName="Log out"
           buttonClass="logout-button"
         />
