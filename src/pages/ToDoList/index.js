@@ -10,13 +10,13 @@ import {
   getDataFromLocalByKey,
   setItemWithLocal,
 } from "../../utils/process-data";
-import { getAllTask } from "../../API/task";
+import { createTask, editTask, getAllTask, getTaskById } from "../../API/task";
 import TodoItem from "../../components/List/TodoItem";
 
 const ToDoList = () => {
   const [taskList, setTaskList] = useState([]);
   const [taskName, setTaskName] = useState("");
-  console.log(taskName);
+  const [currentTask, setCurrentTask] = useState();
 
   function handleInputTask(event) {
     setTaskName(event.target.value);
@@ -31,7 +31,10 @@ const ToDoList = () => {
     setTaskList(taskData);
   }
 
-  function addTask() {
+  async function addTask() {
+    if (taskName === "") {
+      return;
+    }
     const newId = Math.floor(Math.random() * 10000000) + 1;
     const currentUsername = getDataFromLocalByKey("currentUser").username;
     const newTask = {
@@ -42,32 +45,22 @@ const ToDoList = () => {
     };
     newTask.isCreatedByAdmin =
       getDataFromLocalByKey("currentUser").role === "admin";
-    const taskList = getDataFromLocalByKey("taskList");
-    taskList.push(newTask);
-    setItemWithLocal("taskList", taskList);
+    await createTask(newTask);
     resetForm();
-    renderTaskList();
+    renderTask();
   }
 
-  function updateTask() {
-    const idRef = getDataFromLocalByKey("ref");
-    const updatedTaskName = handleInputTask();
-    const taskList = getDataFromLocalByKey("taskList");
-    taskList.forEach((value, index) => {
-      if (value.taskId === idRef) {
-        value.taskName = updatedTaskName;
-      }
-    });
-    setItemWithLocal("taskList", taskList);
-    renderTaskList();
+  async function updateTask() {
+    currentTask.taskName = taskName;
+    await editTask(currentTask);
+    renderTask();
     resetForm();
   }
 
   function resetForm() {
-    const inputText = document.getElementById("add-task-field");
     document.querySelector(".button-update-task").style.display = "none";
     document.querySelector(".button-add-task").style.display = "inline";
-    inputText.value = "";
+    setTaskName("");
   }
   function handleFilterOption() {
     const chosenOption = document.getElementById("filter").value;
@@ -86,6 +79,7 @@ const ToDoList = () => {
             <Input
               inputId="add-task-field"
               inputType="text"
+              value={taskName}
               onChange={handleInputTask}
             />
             <Button
@@ -124,6 +118,8 @@ const ToDoList = () => {
                 key={value._id}
                 taskId={value._id}
                 taskName={value.taskName}
+                setTaskName={setTaskName}
+                setCurrentTask={setCurrentTask}
               />
             );
           })}

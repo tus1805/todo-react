@@ -100,6 +100,7 @@ export function deleteTask(idTask) {
 }
 
 export function editTask(idTask) {
+  console.log(idTask);
   const taskList = getTaskFromLocal();
   const editTask = taskList.forEach((value, index) => {
     if (value.taskId === idTask) {
