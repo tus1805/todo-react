@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "../../components/Container";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -10,13 +10,25 @@ import {
   getDataFromLocalByKey,
   setItemWithLocal,
 } from "../../utils/process-data";
+import { getAllTask } from "../../API/task";
+import TodoItem from "../../components/List/TodoItem";
 
 const ToDoList = () => {
+  const [taskList, setTaskList] = useState([]);
   const [taskName, setTaskName] = useState("");
   console.log(taskName);
 
   function handleInputTask(event) {
     setTaskName(event.target.value);
+  }
+
+  useEffect(() => {
+    renderTask();
+  }, []);
+
+  async function renderTask() {
+    const taskData = await getAllTask();
+    setTaskList(taskData);
   }
 
   function addTask() {
@@ -105,7 +117,17 @@ const ToDoList = () => {
             <Option value="undone" name="Undone" />
           </Select>
         </div>
-        <List listClass="todo-list" listId="todo-list" />
+        <List listClass="todo-list" listId="todo-list">
+          {taskList.map((value) => {
+            return (
+              <TodoItem
+                key={value._id}
+                taskId={value._id}
+                taskName={value.taskName}
+              />
+            );
+          })}
+        </List>
       </Container>
     </Container>
   );
