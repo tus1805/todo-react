@@ -5,18 +5,15 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 import Option from "../../components/Option";
 import List from "../../components/List";
-import { renderTaskList } from "../../utils/todo-list";
-import {
-  getDataFromLocalByKey,
-  setItemWithLocal,
-} from "../../utils/process-data";
-import { createTask, editTask, getAllTask, getTaskById } from "../../API/task";
+import { getDataFromLocalByKey } from "../../utils/process-data";
+import { createTask, editTask, getAllTask } from "../../API/task";
 import TodoItem from "../../components/List/TodoItem";
 
 const ToDoList = () => {
   const [taskList, setTaskList] = useState([]);
   const [taskName, setTaskName] = useState("");
   const [currentTask, setCurrentTask] = useState();
+  const [option, setOption] = useState("all");
 
   function handleInputTask(event) {
     setTaskName(event.target.value);
@@ -26,9 +23,20 @@ const ToDoList = () => {
     renderTask();
   }, []);
 
+  useEffect(() => {
+    renderTask();
+  }, [option]);
+
   async function renderTask() {
     const taskData = await getAllTask();
-    setTaskList(taskData);
+    const notDeleteTask = taskData.filter((task) => task.isDeleted === false);
+    let filteredTask = notDeleteTask;
+    if (option === "done") {
+      filteredTask = notDeleteTask.filter((value) => value.isDone === true);
+    } else if (option === "undone") {
+      filteredTask = notDeleteTask.filter((value) => value.isDone === false);
+    }
+    setTaskList(filteredTask);
   }
 
   async function addTask() {
@@ -62,10 +70,8 @@ const ToDoList = () => {
     document.querySelector(".button-add-task").style.display = "inline";
     setTaskName("");
   }
-  function handleFilterOption() {
-    const chosenOption = document.getElementById("filter").value;
-    renderTaskList(chosenOption);
-    return chosenOption;
+  function handleFilterOption(event) {
+    setOption(event.target.value);
   }
 
   return (
@@ -120,6 +126,8 @@ const ToDoList = () => {
                 taskName={value.taskName}
                 setTaskName={setTaskName}
                 setCurrentTask={setCurrentTask}
+                renderTask={renderTask}
+                isDone={value.isDone}
               />
             );
           })}

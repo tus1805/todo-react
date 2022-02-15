@@ -26,11 +26,18 @@ export const createTask = async (task) => {
   return response.json();
 };
 
-//edit task api
 export const editTask = async (task) => {
   const response = await fetch(`${API_URL}/edit-task`, {
     method: "PATCH",
     body: JSON.stringify(task),
+  });
+  return response.json();
+};
+
+export const deleteTask = async (taskId) => {
+  const response = await fetch(`${API_URL}/delete-task`, {
+    method: "DELETE",
+    body: JSON.stringify(taskId),
   });
   return response.json();
 };
