@@ -1,20 +1,12 @@
 import React from 'react';
-import Container from '../../components/Container';
-import Header from '../../components/Header';
-import HeaderLeft from '../../components/Header-Left';
-import HeaderRight from '../../components/Header-Right';
-import Link from "../../components/Link";
-import Button from '../../components/Button';
-import Input from '../../components/Input';
-import Select from '../../components/Select';
-import Option from '../../components/Option';
-import List from '../../components/List';
-import { doLogOut } from "../../utils/helper-log-status";
-// import { doLogOut } from '../../utils/helper-verycool';
+import Container from "../../components/Container";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Select from "../../components/Select";
+import Option from "../../components/Option";
+import List from "../../components/List";
 
-const ProjectAdmin = (props) => {
-  const { changeLink } = props;
-  // onClick = doLogOut()
+const ProjectAdmin = () => {
   function handleInputProject() {}
   function addProject() {}
   function updateProject() {}

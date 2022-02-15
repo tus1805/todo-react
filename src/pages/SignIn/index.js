@@ -17,24 +17,25 @@ import {
   getDataFromLocalByKey,
   getElementValueById,
 } from "../../utils/process-data";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = (props) => {
-  const { changeLink } = props;
+  const navigate = useNavigate();
   const [data, setData] = useState({ username: "", password: "" });
   console.log(data);
 
   function submitForm(e) {
     e.preventDefault();
-    if (!validateForm) {
+    if (!validateForm()) {
       return;
     }
     setData({ username: "", password: "" });
     alert("Login successfully");
-    changeLink(3);
     const isRemember = getDataFromLocalByKey("isRemember");
     isRemember
       ? setItemWithLocal("isLogin", true)
       : setItemWithSession("isLogin", true);
+    navigate("/");
   }
 
   function validateForm() {
@@ -43,6 +44,7 @@ const SignIn = (props) => {
     if (!validateUsername(username) || !validatePassword(username, password)) {
       return false;
     }
+    console.log("check current user", getCurrentUserInfo(username)[0]);
     setItemWithLocal("currentUser", getCurrentUserInfo(username)[0]);
     return true;
   }

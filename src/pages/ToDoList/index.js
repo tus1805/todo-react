@@ -1,34 +1,30 @@
-import React from 'react';
-import Container from '../../components/Container';
-import Header from '../../components/Header';
-import HeaderLeft from '../../components/Header-Left';
-import HeaderRight from '../../components/Header-Right';
-import Link from "../../components/Link";
-import Button from '../../components/Button';
-import Input from '../../components/Input';
-import Select from '../../components/Select';
-import Option from '../../components/Option';
-import List from '../../components/List';
-import { renderTaskList} from '../../utils/todo-list';
-import { doLogOut } from "../../utils/helper-log-status";
+import React, { useState } from "react";
+import Container from "../../components/Container";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Select from "../../components/Select";
+import Option from "../../components/Option";
+import List from "../../components/List";
+import { renderTaskList } from "../../utils/todo-list";
 import {
   getDataFromLocalByKey,
   setItemWithLocal,
 } from "../../utils/process-data";
 
-const ToDoList = (props) => {
-  const { changeLink } = props;
-  function handleInputTask() {
-    return document.getElementById("add-task-field").value;
+const ToDoList = () => {
+  const [taskName, setTaskName] = useState("");
+  console.log(taskName);
+
+  function handleInputTask(event) {
+    setTaskName(event.target.value);
   }
 
   function addTask() {
     const newId = Math.floor(Math.random() * 10000000) + 1;
-    const newTaskName = handleInputTask();
     const currentUsername = getDataFromLocalByKey("currentUser").username;
     const newTask = {
       taskId: newId,
-      taskName: newTaskName,
+      taskName: taskName,
       username: currentUsername,
       isDone: false,
     };
@@ -65,11 +61,6 @@ const ToDoList = (props) => {
     const chosenOption = document.getElementById("filter").value;
     renderTaskList(chosenOption);
     return chosenOption;
-  }
-
-  function handleLogOut() {
-    doLogOut();
-    changeLink(0);
   }
 
   return (

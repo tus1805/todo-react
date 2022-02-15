@@ -5,6 +5,7 @@ import FormGroup from "../../components/FormGroup";
 import RadioGroup from "../../components/RadioButtonGroup";
 import RadioButton from "../../components/RadioButton";
 import { NOTI_MESSAGE } from "../../constants/validate";
+import { useNavigate } from "react-router-dom";
 import {
   validateName,
   validateUsername,
@@ -16,7 +17,7 @@ import { getElementValueById } from "../../utils/helper-validate";
 import { setItemWithLocal } from "../../utils/process-data";
 
 const SignUp = (props) => {
-  const { changeLink } = props;
+  const navigate = useNavigate();
   const [data, setData] = useState({
     userId: "",
     name: "",
@@ -52,7 +53,7 @@ const SignUp = (props) => {
     existUserData.push(userData);
     setItemWithLocal("userdata", existUserData);
     alert(NOTI_MESSAGE.SUCCESS);
-    changeLink(0);
+    navigate("/sign-in");
   }
 
   function validateForm() {
