@@ -5,20 +5,22 @@ import Button from "../../components/Button";
 import { doLogOut } from "../../utils/helper-log-status";
 import { getDataFromLocalByKey } from "../../utils/process-data";
 import { enableForm, disableForm } from "../../utils/user-admin";
-import { createUser, editUser, getAllUser } from "../../API/user";
+import { deleteUser, getAllUser } from "../../API/user";
 import SignUpAdmin from "./component/SignUp.js";
 
 const UserAdmin = (props) => {
   const { changeLink } = props;
 
-  const userList = getDataFromLocalByKey("userdata").filter(
-    (value) => value.isDeleted !== true
-  );
+  const [userList, setUserList] = useState([]);
   const [isDisable, setIsDisable] = useState(true);
 
   useEffect(() => {
     isDisable ? disableForm() : enableForm();
   }, [isDisable]);
+  
+  useEffect(() =>{
+    renderUser();
+  }, [])
 
   function handleLogOut() {
     doLogOut();
@@ -29,30 +31,17 @@ const UserAdmin = (props) => {
     const userData = await getAllUser();
     const notDeleteUser = userData.filter((user) => user.isDeleted === false);
     let filteredUser = notDeleteUser;
-    // setUserList(filteredUser);
+    setUserList(filteredUser);
   }
 
-  async function addUser() {
-    // if (username === "") {
-    //   return;
-    // }
-    // const newId = Math.floor(Math.random() * 10000000) + 1;
-    // const newUser = {
-    //   userId: newId,
-    //   username: username,
-    //   password: password,
-    // };
-    // newUser.isCreatedByAdmin =
-    //   getDataFromLocalByKey("currentUser").role === "admin";
-    // await createUser(newUser);
-    // // resetForm();
-    // renderUser();
+  function addUser() {
+    setIsDisable(false);
   }
 
-  function editUser(userId) {
+  async function handleEditUser(userId) {
     console.log("edit");
     setIsDisable(false);
-    const userList = getDataFromLocalByKey("userdata");
+    const userList = await getAllUser();
     userList.forEach((value, index) => {
       if (value.userId === userId) {
         document.getElementById("name").value = value.name;
@@ -79,6 +68,12 @@ const UserAdmin = (props) => {
     return userList;
   }
 
+  async function handleDeleteUser(id){
+    await deleteUser(id);
+    console.log(1);
+    renderUser()
+  }
+
   const ButtonContainer = (props) => {
     const { userId } = props;
     return (
@@ -86,12 +81,12 @@ const UserAdmin = (props) => {
         <Button
           buttonClass="button-edit-task"
           buttonName="Edit"
-          onClick={() => editUser(userId)}
+          onClick={() => handleEditUser(userId)}
         />
         <Button
           buttonClass="button-delete-task"
           buttonName="Delete"
-          // onClick={() => editUser(user.userId)}
+          onClick={() => handleDeleteUser(userId)}
         />
       </>
     );

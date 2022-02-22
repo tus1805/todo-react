@@ -15,6 +15,8 @@ import {
 import { getElementValueById } from "../../../utils/helper-validate";
 import { setItemWithLocal } from "../../../utils/process-data";
 import CheckboxGroup from "../../../components/CheckboxGroup";
+import { signUp } from "../../../API/user";
+import { enableForm, disableForm } from "../../../utils/user-admin";
 
 const SignUpAdmin = (props) => {
   const { changeLink } = props;
@@ -29,19 +31,27 @@ const SignUpAdmin = (props) => {
     role: "",
   });
   const [genderValue, setGenderValue] = useState("");
-  function submitForm(e) {
+  const [isDisable, setIsDisable] = useState(true);
+
+  useEffect(() => {
+    isDisable ? disableForm() : enableForm();
+  }, [isDisable]);
+
+  async function submitForm(e) {
     e.preventDefault();
-    const newId = Math.floor(Math.random() * 10000000) + 1;
-    const existUserData = JSON.parse(localStorage.getItem("userdata")) || [];
-    const userData = data;
-    userData.userId = newId;
-    userData.role = "user";
+    let userData = {};
+    userData.isAdmin = false;
+    userData.name = data.name;
+    userData.username = data.username;
+    userData.password = data.password;
+    userData.age = data.age;
+    userData.gender = data.gender;
     console.log(userData);
     if (!validateForm()) {
       return;
     }
+    await signUp(userData);
     setData({
-      userId: "",
       name: "",
       username: "",
       password: "",
@@ -50,10 +60,6 @@ const SignUpAdmin = (props) => {
       gender: "",
       role: "",
     });
-    existUserData.push(userData);
-    setItemWithLocal("userdata", existUserData);
-    alert(NOTI_MESSAGE.SUCCESS);
-    changeLink(0);
   }
 
   function validateForm() {
