@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Container from "../../components/Container";
 import Table from "../../components/Table";
-import Header from "../../components/Header";
-import HeaderLeft from "../../components/Header-Left";
-import HeaderRight from "../../components/Header-Right";
-import Link from "../../components/Link";
 import Button from "../../components/Button";
 import { doLogOut } from "../../utils/helper-log-status";
 import { getDataFromLocalByKey } from "../../utils/process-data";
@@ -14,7 +10,7 @@ import SignUpAdmin from "./component/SignUp.js";
 
 const UserAdmin = (props) => {
   const { changeLink } = props;
-  
+
   const userList = getDataFromLocalByKey("userdata").filter(
     (value) => value.isDeleted !== true
   );
@@ -132,7 +128,7 @@ const UserAdmin = (props) => {
             />
           </div>
         </div>
-        <SignUpAdmin></SignUpAdmin>
+        <SignUpAdmin />
       </div>
     </Container>
   );

@@ -43,13 +43,11 @@ const ToDoList = () => {
     if (taskName === "") {
       return;
     }
-    const newId = Math.floor(Math.random() * 10000000) + 1;
     const currentUsername = getDataFromLocalByKey("currentUser").username;
     const newTask = {
-      taskId: newId,
       taskName: taskName,
-      username: currentUsername,
       isDone: false,
+      createdBy: currentUsername,
     };
     newTask.isCreatedByAdmin =
       getDataFromLocalByKey("currentUser").role === "admin";

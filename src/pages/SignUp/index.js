@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ButtonSubmit from "../../components/ButtonSubmit";
 import Form from "../../components/Form";
 import FormGroup from "../../components/FormGroup";
 import RadioGroup from "../../components/RadioButtonGroup";
 import RadioButton from "../../components/RadioButton";
 import { NOTI_MESSAGE } from "../../constants/validate";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   validateName,
   validateUsername,
@@ -14,44 +14,41 @@ import {
   validateAge,
 } from "../../utils/validate-signUp";
 import { getElementValueById } from "../../utils/helper-validate";
-import { setItemWithLocal } from "../../utils/process-data";
+import { signUp } from "../../API/user";
 
-const SignUp = (props) => {
+const SignUp = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({
-    userId: "",
     name: "",
     username: "",
     password: "",
     confirmPassword: "",
     age: "",
     gender: "",
-    role: "",
   });
-  const [genderValue, setGenderValue] = useState("");
-  function submitForm(e) {
+
+  async function submitForm(e) {
     e.preventDefault();
-    const newId = Math.floor(Math.random() * 10000000) + 1;
-    const existUserData = JSON.parse(localStorage.getItem("userdata")) || [];
-    const userData = data;
-    userData.userId = newId;
-    userData.role = "user";
+    let userData = {};
+    userData.isAdmin = false;
+    userData.name = data.name;
+    userData.username = data.username;
+    userData.password = data.password;
+    userData.age = data.age;
+    userData.gender = data.gender;
     console.log(userData);
     if (!validateForm()) {
       return;
     }
+    await signUp(userData);
     setData({
-      userId: "",
       name: "",
       username: "",
       password: "",
       confirmPassword: "",
       age: "",
       gender: "",
-      role: "",
     });
-    existUserData.push(userData);
-    setItemWithLocal("userdata", existUserData);
     alert(NOTI_MESSAGE.SUCCESS);
     navigate("/sign-in");
   }
@@ -71,14 +68,11 @@ const SignUp = (props) => {
   }
 
   function getGenderValue(e) {
-    setGenderValue(e.target.value);
-  }
-
-  useEffect(() => {
-    const newData = data;
-    newData.gender = genderValue;
+    const gender = e.target.value;
+    const newData = { ...data };
+    newData.gender = gender;
     setData(newData);
-  }, [genderValue]);
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -188,6 +182,7 @@ const SignUp = (props) => {
           />
         </div>
         <ButtonSubmit buttonName="Sign up" />
+        <Link to="/sign-in">Want to sign in?</Link>
       </>
     </Form>
   );

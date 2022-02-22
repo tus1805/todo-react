@@ -21,12 +21,13 @@ const SignIn = () => {
     e.preventDefault();
     const token = await signIn(data);
     if (token !== "Username or password is not correct.") {
-      console.log({ token });
+      console.log(token);
       setData({ username: "", password: "" });
       const isRemember = getDataFromLocalByKey("isRemember");
       isRemember === true
-        ? setItemWithLocal("todoToken", token)
-        : setItemWithSession("todoToken", token);
+        ? setItemWithLocal("todoToken", token.token)
+        : setItemWithSession("todoToken", token.token);
+      // setItemWithLocal("userId ");
       alert("Login successfully");
       navigate("/");
     } else {

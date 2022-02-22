@@ -14,10 +14,9 @@ const Layout = () => {
     doLogOut();
   }
   function checkLoginStatus() {
-    const token =
-      getDataFromLocalByKey("todoToken").token ||
-      getDataFromSessionByKey("todoToken").token;
-    if (token?.length > 0 || token === undefined) {
+    const localToken = getDataFromLocalByKey("todoToken");
+    const sessionToken = getDataFromSessionByKey("todoToken");
+    if (!sessionToken[0] && !localToken[0]) {
       alert("You are not logged in");
       navigate("/sign-in");
     }
