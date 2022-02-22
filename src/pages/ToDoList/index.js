@@ -5,7 +5,6 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 import Option from "../../components/Option";
 import List from "../../components/List";
-import { getDataFromLocalByKey } from "../../utils/process-data";
 import { createTask, editTask, getAllTask } from "../../API/task";
 import TodoItem from "../../components/List/TodoItem";
 
@@ -13,6 +12,7 @@ const ToDoList = () => {
   const [taskList, setTaskList] = useState([]);
   const [taskName, setTaskName] = useState("");
   const [currentTask, setCurrentTask] = useState();
+  const [currentUser, setCurrentUser] = useState();
   const [option, setOption] = useState("all");
 
   function handleInputTask(event) {
@@ -21,6 +21,7 @@ const ToDoList = () => {
 
   useEffect(() => {
     renderTask();
+    setCurrentUser(localStorage.getItem("userId"));
   }, []);
 
   useEffect(() => {
@@ -43,14 +44,14 @@ const ToDoList = () => {
     if (taskName === "") {
       return;
     }
-    const currentUsername = getDataFromLocalByKey("currentUser").username;
+    // const currentUserId = getDataFromLocalByKey("userId");
+    // console.log(currentUserId);
     const newTask = {
       taskName: taskName,
       isDone: false,
-      createdBy: currentUsername,
+      createdBy: currentUser,
+      assignedTo: currentUser,
     };
-    newTask.isCreatedByAdmin =
-      getDataFromLocalByKey("currentUser").role === "admin";
     await createTask(newTask);
     resetForm();
     renderTask();
