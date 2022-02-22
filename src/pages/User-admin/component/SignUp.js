@@ -12,14 +12,16 @@ import {
   validateConfirmPassword,
   validateAge,
 } from "../../../utils/validate-signUp";
-import { getElementValueById } from "../../../utils/helper-validate";
+import { getElementValueById, resetForm } from "../../../utils/helper-validate";
 import { setItemWithLocal } from "../../../utils/process-data";
 import CheckboxGroup from "../../../components/CheckboxGroup";
 import { signUp } from "../../../API/user";
 import { enableForm, disableForm } from "../../../utils/user-admin";
+import { getAllUser } from "../../../API/user";
+import Button from "../../../components/Button";
 
 const SignUpAdmin = (props) => {
-  const { changeLink } = props;
+  const { userList, setUserList } = props;
   const [data, setData] = useState({
     userId: "",
     name: "",
@@ -36,6 +38,14 @@ const SignUpAdmin = (props) => {
   useEffect(() => {
     isDisable ? disableForm() : enableForm();
   }, [isDisable]);
+
+  async function renderUser() {
+    const userData = await getAllUser();
+    const notDeleteUser = userData.filter((user) => user.isDeleted === false);
+    let filteredUser = notDeleteUser;
+    setUserList(filteredUser);
+  }
+
 
   async function submitForm(e) {
     e.preventDefault();
@@ -60,6 +70,8 @@ const SignUpAdmin = (props) => {
       gender: "",
       role: "",
     });
+    setIsDisable(true);
+    renderUser();
   }
 
   function validateForm() {
@@ -88,6 +100,10 @@ const SignUpAdmin = (props) => {
     newData.gender = genderValue;
     setData(newData);
   }, [genderValue]);
+
+  function cancelEdit(){
+    resetForm();
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -203,7 +219,9 @@ const SignUpAdmin = (props) => {
           onChange={setAdmin}
         >
         </CheckboxGroup>
-        <ButtonSubmit buttonName="Sign up" />
+        <ButtonSubmit buttonName="Confirm" buttonClass="button-add-user" />
+        <ButtonSubmit buttonName="Update" buttonClass="button-update-user"/>
+        <Button buttonName="Cancel" buttonClass="button-cancel" onClick={cancelEdit}/>
       </>
     </Form>
   );

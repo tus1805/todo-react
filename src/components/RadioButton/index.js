@@ -12,6 +12,7 @@ const RadioButton = (props) => {
         inputName={inputName}
         value={value}
         onChange={onChange}
+        inputId={groupId}
       />
       <Label labelId={groupId} labelName={labelName} onChange={onChange} />
     </>
