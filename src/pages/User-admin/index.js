@@ -9,10 +9,12 @@ import Button from "../../components/Button";
 import { doLogOut } from "../../utils/helper-log-status";
 import { getDataFromLocalByKey } from "../../utils/process-data";
 import { enableForm, disableForm } from "../../utils/user-admin";
+import { createUser, editUser, getAllUser } from "../../API/user";
 import SignUpAdmin from "./component/SignUp.js";
 
 const UserAdmin = (props) => {
   const { changeLink } = props;
+  
   const userList = getDataFromLocalByKey("userdata").filter(
     (value) => value.isDeleted !== true
   );
@@ -27,7 +29,29 @@ const UserAdmin = (props) => {
     changeLink(0);
   }
 
-  function addUser() {}
+  async function renderUser() {
+    const userData = await getAllUser();
+    const notDeleteUser = userData.filter((user) => user.isDeleted === false);
+    let filteredUser = notDeleteUser;
+    // setUserList(filteredUser);
+  }
+
+  async function addUser() {
+    // if (username === "") {
+    //   return;
+    // }
+    // const newId = Math.floor(Math.random() * 10000000) + 1;
+    // const newUser = {
+    //   userId: newId,
+    //   username: username,
+    //   password: password,
+    // };
+    // newUser.isCreatedByAdmin =
+    //   getDataFromLocalByKey("currentUser").role === "admin";
+    // await createUser(newUser);
+    // // resetForm();
+    // renderUser();
+  }
 
   function editUser(userId) {
     console.log("edit");
