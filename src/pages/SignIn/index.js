@@ -4,49 +4,34 @@ import CheckboxGroup from "../../components/CheckboxGroup";
 import Form from "../../components/Form";
 import FormGroup from "../../components/FormGroup";
 import { Link } from "react-router-dom";
-// import Link from "../../components/Link";
-import {
-  rememberCurrentUser,
-  validateUsername,
-  validatePassword,
-  getCurrentUserInfo,
-} from "../../utils/validate-signIn";
+
 import {
   setItemWithLocal,
   setItemWithSession,
   getDataFromLocalByKey,
-  getElementValueById,
 } from "../../utils/process-data";
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../../API/user";
 
-const SignIn = (props) => {
+const SignIn = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({ username: "", password: "" });
-  console.log(data);
 
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
+    const token = await signIn(data);
+    if (token !== "Username or password is not correct.") {
+      console.log({ token });
+      setData({ username: "", password: "" });
+      const isRemember = getDataFromLocalByKey("isRemember");
+      isRemember === true
+        ? setItemWithLocal("todoToken", token)
+        : setItemWithSession("todoToken", token);
+      alert("Login successfully");
+      navigate("/");
+    } else {
+      alert("Username or password is not correct");
     }
-    setData({ username: "", password: "" });
-    alert("Login successfully");
-    const isRemember = getDataFromLocalByKey("isRemember");
-    isRemember
-      ? setItemWithLocal("isLogin", true)
-      : setItemWithSession("isLogin", true);
-    navigate("/");
-  }
-
-  function validateForm() {
-    const { username, password } = data;
-    // rememberCurrentUser();
-    if (!validateUsername(username) || !validatePassword(username, password)) {
-      return false;
-    }
-    console.log("check current user", getCurrentUserInfo(username)[0]);
-    setItemWithLocal("currentUser", getCurrentUserInfo(username)[0]);
-    return true;
   }
 
   function handleChange(e) {
@@ -54,15 +39,9 @@ const SignIn = (props) => {
     setData({ ...data, [name]: value });
   }
 
-  function handleUsernameMessage(e) {
-    const username = getElementValueById("username");
-    validateUsername(username);
-  }
-
-  function handlePasswordMessage(e) {
-    const username = getElementValueById("username");
-    const password = getElementValueById("password");
-    validatePassword(username, password);
+  function handleRemember(e) {
+    const isRemember = e.target.checked;
+    setItemWithLocal("isRemember", isRemember);
   }
 
   return (
@@ -78,7 +57,7 @@ const SignIn = (props) => {
           groupId="username"
           textClassName="error-message"
           inputType="text"
-          handleInput={handleUsernameMessage}
+          // handleInput={handleUsernameMessage}
           value={data.username}
           onChange={handleChange}
         />
@@ -87,7 +66,7 @@ const SignIn = (props) => {
           groupId="password"
           textClassName="error-message"
           inputType="password"
-          handleInput={handlePasswordMessage}
+          // handleInput={handlePasswordMessage}
           value={data.password}
           onChange={handleChange}
         />
@@ -95,7 +74,7 @@ const SignIn = (props) => {
         <CheckboxGroup
           groupId="remember"
           labelName="Remember account"
-          onChange={rememberCurrentUser}
+          onChange={handleRemember}
         />
         <Link to="/sign-up">Sign up now</Link>
       </>

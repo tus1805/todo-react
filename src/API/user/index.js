@@ -41,3 +41,19 @@ export const deleteUser = async (userId) => {
   });
   return response.json();
 };
+
+export const signUp = async (user) => {
+  const response = await fetch(`${API_URL}/sign-up`, {
+    method: "POST",
+    body: JSON.stringify(user),
+  });
+  return response.json();
+};
+
+export const signIn = async (user) => {
+  const response = await fetch(`${API_URL}/sign-in`, {
+    method: "POST",
+    body: JSON.stringify(user),
+  });
+  return response.json();
+};

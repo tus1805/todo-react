@@ -1,9 +1,9 @@
 // import { setItemWithSession } from "./process-data";
 
 export function doLogOut() {
-  localStorage.setItem("isLogin", false);
-  sessionStorage.setItem("isLogin", false);
-  localStorage.removeItem("currentUser");
+  localStorage.setItem("isRemember", false);
+  localStorage.removeItem("todoToken");
+  sessionStorage.removeItem("todoToken");
   return;
 }
 
