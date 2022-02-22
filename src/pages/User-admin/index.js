@@ -5,15 +5,17 @@ import Button from "../../components/Button";
 import { doLogOut } from "../../utils/helper-log-status";
 import { getDataFromLocalByKey } from "../../utils/process-data";
 import { enableForm, disableForm } from "../../utils/user-admin";
-import { deleteUser, getAllUser } from "../../API/user";
+import { deleteUser, getAllUser, getUserById } from "../../API/user";
 import SignUpAdmin from "./component/SignUp.js";
+import ButtonContainer from "./component/ButtonContainer";
 
 const UserAdmin = (props) => {
   const { changeLink } = props;
 
   const [userList, setUserList] = useState([]);
+  const [currentUser, setCurrentUser] = useState();
   const [isDisable, setIsDisable] = useState(true);
-
+console.log(userList);
   useEffect(() => {
     isDisable ? disableForm() : enableForm();
   }, [isDisable]);
@@ -41,28 +43,33 @@ const UserAdmin = (props) => {
   async function handleEditUser(userId) {
     console.log("edit");
     setIsDisable(false);
-    const userList = await getAllUser();
-    userList.forEach((value, index) => {
-      if (value.userId === userId) {
-        document.getElementById("name").value = value.name;
-        document.getElementById("username").value = value.username;
-        document.getElementById("password").value = value.password;
-        document.getElementById("confirmPassword").value =
-          value.confirmPassword;
-        document.getElementById("age").value = value.age;
-        if (value.gender === "male") {
-          document.getElementById("male").checked = true;
-        } else if (value.gender === "female") {
-          document.getElementById("female").checked = true;
-        }
-        if (value.role === "admin") {
-          document.getElementById("setAdmin").checked = true;
-        } else {
-          document.getElementById("setAdmin").checked = false;
-        }
-        localStorage.setItem("ref", value.userId);
-      }
-    });
+    const requestId = {
+      _id: userId
+    }
+    const currentUser = await getUserById(requestId)
+    setCurrentUser(currentUser);
+    // const userList = await getAllUser();
+    // userList.forEach((value, index) => {
+    //   if (value.userId === userId) {
+    //     document.getElementById("name").value = value.name;
+    //     document.getElementById("username").value = value.username;
+    //     document.getElementById("password").value = value.password;
+    //     document.getElementById("confirmPassword").value =
+    //       value.confirmPassword;
+    //     document.getElementById("age").value = value.age;
+    //     if (value.gender === "male") {
+    //       document.getElementById("male").checked = true;
+    //     } else if (value.gender === "female") {
+    //       document.getElementById("female").checked = true;
+    //     }
+    //     if (value.role === "admin") {
+    //       document.getElementById("setAdmin").checked = true;
+    //     } else {
+    //       document.getElementById("setAdmin").checked = false;
+    //     }
+    //     localStorage.setItem("ref", value.userId);
+    //   }
+    // });
     document.querySelector(".button-update-user").style.display = "inline";
     document.querySelector(".button-add-user").style.display = "none";
     return userList;
@@ -74,23 +81,24 @@ const UserAdmin = (props) => {
     renderUser()
   }
 
-  const ButtonContainer = (props) => {
-    const { userId } = props;
-    return (
-      <>
-        <Button
-          buttonClass="button-edit-task"
-          buttonName="Edit"
-          onClick={() => handleEditUser(userId)}
-        />
-        <Button
-          buttonClass="button-delete-task"
-          buttonName="Delete"
-          onClick={() => handleDeleteUser(userId)}
-        />
-      </>
-    );
-  };
+  // const ButtonContainer = (props) => {
+  //   const { userId } = props;
+  //   console.log(userId);
+  //   return (
+  //     <>
+  //       <Button
+  //         buttonClass="button-edit-task"
+  //         buttonName="Edit"
+  //         onClick={() => handleEditUser(userId)}
+  //       />
+  //       <Button
+  //         buttonClass="button-delete-task"
+  //         buttonName="Delete"
+  //         onClick={() => handleDeleteUser(userId)}
+  //       />
+  //     </>
+  //   );
+  // };
 
   return (
     <Container containerName="l-container">
@@ -104,12 +112,12 @@ const UserAdmin = (props) => {
               </tr>
               {userList.map((user) => (
                 <>
-                  <tr className="user-table" key={user.userId}>
+                  <tr className="user-table" key={user._id}>
                     <td>{user.name}</td>
                     <td>{user.role}</td>
                   </tr>
                   <tr className="user-table-option">
-                    <ButtonContainer userId={user.userId} />
+                    <ButtonContainer userId={user._id} setIsDisable={setIsDisable} setCurrentUser={setCurrentUser} userList={userList} setUserList={setUserList} />
                   </tr>
                 </>
               ))}

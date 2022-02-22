@@ -77,7 +77,10 @@ const SignUpAdmin = (props) => {
   }
 
   function getGenderValue(e) {
-    setGenderValue(e.target.value);
+    const gender = e.target.value;
+    const newData = { ...data };
+    newData.gender = gender;
+    setData(newData);
   }
 
   useEffect(() => {
