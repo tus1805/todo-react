@@ -16,7 +16,17 @@ const UserAdmin = (props) => {
   const [userList, setUserList] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [isDisable, setIsDisable] = useState(true);
-console.log(userList);
+  const [data, setData] = useState({
+    userId: "",
+    name: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    age: "",
+    gender: "",
+    role: "",
+  });
+  // console.log(userList);
   useEffect(() => {
     isDisable ? disableForm() : enableForm();
   }, [isDisable]);
@@ -40,7 +50,7 @@ console.log(userList);
   function addUser() {
     document.querySelector(".button-update-user").style.display = "none";
     document.querySelector(".button-add-user").style.display = "inline";
-    setIsDisable(false);
+    // setIsDisable(false);
     resetForm();
   }
 
@@ -87,7 +97,7 @@ console.log(userList);
                     <td>{user.role}</td>
                   </tr>
                   <tr className="user-table-option">
-                    <ButtonContainer userId={user._id} setIsDisable={setIsDisable} setCurrentUser={setCurrentUser} userList={userList} setUserList={setUserList} />
+                    <ButtonContainer userId={user._id} setIsDisable={setIsDisable} setCurrentUser={setCurrentUser} userList={userList} setUserList={setUserList} data={data}/>
                   </tr>
                 </>
               ))}
@@ -101,7 +111,7 @@ console.log(userList);
             />
           </div>
         </div>
-        <SignUpAdmin userList={userList} setUserList={setUserList} />
+        <SignUpAdmin userList={userList} setUserList={setUserList} setCurrentUser={setCurrentUser} data={data} setData={setData}/>
       </div>
     </Container>
   );

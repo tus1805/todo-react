@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect }  from 'react'
 import Button from '../../../components/Button';
 import { deleteUser, getAllUser, getUserById } from "../../../API/user";
 
 const ButtonContainer = (props) => {
-  const { userId, setIsDisable, setCurrentUser, userList, setUserList } = props;
+  const { userId, setIsDisable, setCurrentUser, userList, setUserList, data } = props;
+  
+  
 
   async function renderUser() {
     const userData = await getAllUser();
@@ -14,12 +16,14 @@ const ButtonContainer = (props) => {
 
   async function handleEditUser(userId) {
     console.log("edit");
+    let data = {};
+    console.log(data);
     setIsDisable(false);
     const requestId = {
       _id: userId
     }
     const currentUser = await getUserById(requestId)
-    console.log(currentUser);
+    // console.log(currentUser);
     setCurrentUser(currentUser);
     // const userList = await getAllUser();
     // userList.forEach((value, index) => {
@@ -40,9 +44,16 @@ const ButtonContainer = (props) => {
         } else {
           document.getElementById("setAdmin").checked = false;
         }
-        localStorage.setItem("ref", currentUser.userId);
+        // localStorage.setItem("ref", currentUser.userId);
       // }
     // });
+    data.name = currentUser.name;
+    data.username = currentUser.username;
+    data.password = currentUser.password;
+    data.age = currentUser.age;
+    data.gender = currentUser.gender;
+    data.role = currentUser.role;
+    console.log(data);
     
     document.querySelector(".button-update-user").style.display = "inline";
     document.querySelector(".button-add-user").style.display = "none";

@@ -17,11 +17,11 @@ import { setItemWithLocal } from "../../../utils/process-data";
 import CheckboxGroup from "../../../components/CheckboxGroup";
 import { signUp } from "../../../API/user";
 import { enableForm, disableForm } from "../../../utils/user-admin";
-import { getAllUser } from "../../../API/user";
+import { getAllUser, getUserById } from "../../../API/user";
 import Button from "../../../components/Button";
 
 const SignUpAdmin = (props) => {
-  const { userList, setUserList } = props;
+  const { userList, setUserList, setCurrentUser } = props;
   const [data, setData] = useState({
     userId: "",
     name: "",
@@ -70,8 +70,12 @@ const SignUpAdmin = (props) => {
       gender: "",
       role: "",
     });
-    setIsDisable(true);
+    // setIsDisable(true);
     renderUser();
+  }
+
+  async function updateUser(userId) {
+    console.log("edit");
   }
 
   function validateForm() {
@@ -108,6 +112,7 @@ const SignUpAdmin = (props) => {
   function handleChange(e) {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+    console.log(data)
   }
 
   function handleNameMessage(e) {
@@ -220,7 +225,7 @@ const SignUpAdmin = (props) => {
         >
         </CheckboxGroup>
         <ButtonSubmit buttonName="Confirm" buttonClass="button-add-user" />
-        <ButtonSubmit buttonName="Update" buttonClass="button-update-user"/>
+        <Button buttonName="Update" buttonClass="button-update-user" onClick={updateUser}/>
         <Button buttonName="Cancel" buttonClass="button-cancel" onClick={cancelEdit}/>
       </>
     </Form>
