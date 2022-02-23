@@ -44,8 +44,6 @@ const ToDoList = () => {
     if (taskName === "") {
       return;
     }
-    // const currentUserId = getDataFromLocalByKey("userId");
-    // console.log(currentUserId);
     const newTask = {
       taskName: taskName,
       isDone: false,
