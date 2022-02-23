@@ -54,7 +54,6 @@ const SignUpAdmin = (props) => {
     }
     await signUp(userData);
     setData({
-      
       name: "",
       username: "",
       password: "",

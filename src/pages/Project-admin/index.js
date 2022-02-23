@@ -6,13 +6,16 @@ import Select from "../../components/Select";
 import Option from "../../components/Option";
 import List from "../../components/List";
 import { getAllProject, createProject, editProject } from "../../API/project";
+import ProjectItem from "../../components/List/ProjectItem";
 
 const ProjectAdmin = () => {
   const [projectList, setProjectList] = useState([]);
   const [projectName, setProjectName] = useState("");
   const [currentProject, setCurrentProject] = useState();
-  const [currentUser, setCurrentUser] = useState();
+  // const [currentUser, setCurrentUser] = useState();
+  const currentUser = localStorage.getItem("userId")
   const [option, setOption] = useState("all");
+  console.log(currentUser);
 
   function handleInputProject(event) {
     setProjectName(event.target.value);
@@ -20,7 +23,7 @@ const ProjectAdmin = () => {
 
   useEffect(() => {
     renderProject();
-    setCurrentUser(localStorage.getItem("userId"));
+    // setCurrentUser(localStorage.getItem("userId"));
   }, []);
 
   useEffect(() => {
@@ -33,25 +36,19 @@ const ProjectAdmin = () => {
       (project) => project.isDeleted === false
     );
     let filteredProject = notDeleteProject;
-    if (option === "done") {
-      filteredProject = notDeleteProject.filter(
-        (value) => value.isDone === true
-      );
-    } else if (option === "undone") {
-      filteredProject = notDeleteProject.filter(
-        (value) => value.isDone === false
-      );
-    }
+    console.log(filteredProject)
+    
     setProjectList(filteredProject);
   }
 
-  async function addProject() {
+  async function addProject(e) {
     if (projectName === "") {
       return;
     }
     const newProject = {
       projectName: projectName,
       isDone: false,
+      isDeleted:false,
       createdBy: currentUser,
     };
     await createProject(newProject);
@@ -67,14 +64,14 @@ const ProjectAdmin = () => {
   }
 
   function resetForm() {
-    document.querySelector(".button-update-task").style.display = "none";
-    document.querySelector(".button-add-task").style.display = "inline";
+    document.querySelector(".button-update-project").style.display = "none";
+    document.querySelector(".button-add-project").style.display = "inline";
     setProjectName("");
   }
   function handleFilterOption(event) {
     setOption(event.target.value);
   }
-  function getSelectedUser() {}
+  function getSelectedUser() { }
 
   return (
     <Container containerName="l-container">
@@ -84,22 +81,22 @@ const ProjectAdmin = () => {
         </h1>
         <div className="todo-form">
           <Input
-            inputId="add-task-field"
+            inputId="add-project-field"
             inputType="text"
             onChange={handleInputProject}
           />
           <Button
-            buttonClass="button-add-task"
+            buttonClass="button-add-project"
             buttonName="Add"
             onClick={addProject}
           />
           <Button
-            buttonClass="button-update-task"
+            buttonClass="button-update-project"
             buttonName="Update"
             onClick={updateProject}
           />
           <Button
-            buttonClass="button-clear-task"
+            buttonClass="button-clear-project"
             buttonName="Clear"
             onClick={resetForm}
           />
@@ -119,7 +116,21 @@ const ProjectAdmin = () => {
         <Container containerName="project-control-container">
           <List className="todo-list">
             <h3>Project list</h3>
-            <List className="project-list" />
+            <List className="project-list" >
+            {projectList.map((value) => {
+            return (
+              <ProjectItem
+                key={value._id}
+                projectId={value._id}
+                projectName={value.projectName}
+                setProjectName={setProjectName}
+                setCurrentProject={setCurrentProject}
+                renderProject={renderProject}
+                isDone={value.isDone}
+              />
+            );
+          })}
+            </List>
           </List>
           <List className="todo-list">
             <h3 id="task-project-name">Task list in Project</h3>

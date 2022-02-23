@@ -27,7 +27,8 @@ const SignIn = () => {
       isRemember === true
         ? setItemWithLocal("todoToken", token.token)
         : setItemWithSession("todoToken", token.token);
-      setItemWithLocal("userId ", token.userId);
+      // setItemWithLocal("userId ", token.userId);
+      localStorage.setItem("userId", token.userId)
       alert("Login successfully");
       navigate("/");
     } else {

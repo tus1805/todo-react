@@ -15,6 +15,7 @@ const UserAdmin = (props) => {
 
   const [userList, setUserList] = useState([]);
   const [currentUser, setCurrentUser] = useState();
+  const [isEditting, setIsEditting] = useState(false)
   const [isDisable, setIsDisable] = useState(true);
   const [data, setData] = useState({
     name: "",
@@ -77,7 +78,7 @@ const UserAdmin = (props) => {
                     <td>{user.role}</td>
                   </tr>
                   <tr className="user-table-option">
-                    <ButtonContainer userId={user._id} setIsDisable={setIsDisable} setCurrentUser={setCurrentUser} userList={userList} setUserList={setUserList} data={data} setData={setData}/>
+                    <ButtonContainer userId={user._id} setIsDisable={setIsDisable} setCurrentUser={setCurrentUser} userList={userList} setUserList={setUserList} data={data} setData={setData} isEditting={isEditting} setIsEditting={setIsEditting} />
                   </tr>
                 </>
               ))}
@@ -91,7 +92,7 @@ const UserAdmin = (props) => {
             />
           </div>
         </div>
-        <SignUpAdmin userList={userList} setUserList={setUserList} setCurrentUser={setCurrentUser} data={data} setData={setData}/>
+        <SignUpAdmin userList={userList} setUserList={setUserList} setCurrentUser={setCurrentUser} data={data} setData={setData} isEditting={isEditting} setIsEditting={setIsEditting}/>
       </div>
     </Container>
   );
