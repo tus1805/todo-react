@@ -17,21 +17,13 @@ import { setItemWithLocal } from "../../../utils/process-data";
 import CheckboxGroup from "../../../components/CheckboxGroup";
 import { signUp } from "../../../API/user";
 import { enableForm, disableForm } from "../../../utils/user-admin";
-import { getAllUser, getUserById } from "../../../API/user";
+import { getAllUser, getUserById, editUser } from "../../../API/user";
 import Button from "../../../components/Button";
 
 const SignUpAdmin = (props) => {
-  const { userList, setUserList, setCurrentUser } = props;
-  const [data, setData] = useState({
-    userId: "",
-    name: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-    age: "",
-    gender: "",
-    role: "",
-  });
+  const { userList, setUserList, setCurrentUser, data, setData, isEditting, setIsEditting } = props;
+  console.log(data)
+  
   const [genderValue, setGenderValue] = useState("");
   const [isDisable, setIsDisable] = useState(true);
 
@@ -47,10 +39,10 @@ const SignUpAdmin = (props) => {
   }
 
 
-  async function submitForm(e) {
+  async function addUser(e) {
     e.preventDefault();
     let userData = {};
-    userData.isAdmin = false;
+    userData.isAdmin = data.isAdmin;
     userData.name = data.name;
     userData.username = data.username;
     userData.password = data.password;
@@ -62,6 +54,7 @@ const SignUpAdmin = (props) => {
     }
     await signUp(userData);
     setData({
+      
       name: "",
       username: "",
       password: "",
@@ -74,8 +67,13 @@ const SignUpAdmin = (props) => {
     renderUser();
   }
 
-  async function updateUser(userId) {
-    console.log("edit");
+  async function updateUser() {
+    console.log("update");
+    await editUser(data);
+    // console.log(currentUser);
+    renderUser();
+    resetForm();
+    
   }
 
   function validateForm() {
@@ -112,7 +110,6 @@ const SignUpAdmin = (props) => {
   function handleChange(e) {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-    console.log(data)
   }
 
   function handleNameMessage(e) {
@@ -139,14 +136,19 @@ const SignUpAdmin = (props) => {
     const age = getElementValueById("age");
     validateAge(age);
   }
-  function setAdmin(){}
+  function setAdmin(e){
+    const isAdmin = e.target;
+    const value = e.target.checked;
+    console.log(value)
+    setData({...data, [isAdmin]: value});
+  }
 
   return (
     <Form
       formClassname="form-container"
-      formName="signUpForm"
-      onSubmit={submitForm}
-      formId="signUpForm"
+      formName="signUpAdminForm"
+      // onSubmit={submitForm}
+      formId="signUpAdminForm"
     >
       <>
         <h1>Sign Up</h1>
@@ -224,7 +226,7 @@ const SignUpAdmin = (props) => {
           onChange={setAdmin}
         >
         </CheckboxGroup>
-        <ButtonSubmit buttonName="Confirm" buttonClass="button-add-user" />
+        <Button buttonName="Confirm" buttonClass="button-add-user" onClick={addUser}/>
         <Button buttonName="Update" buttonClass="button-update-user" onClick={updateUser}/>
         <Button buttonName="Cancel" buttonClass="button-cancel" onClick={cancelEdit}/>
       </>

@@ -17,7 +17,6 @@ const UserAdmin = (props) => {
   const [currentUser, setCurrentUser] = useState();
   const [isDisable, setIsDisable] = useState(true);
   const [data, setData] = useState({
-    userId: "",
     name: "",
     username: "",
     password: "",
@@ -61,25 +60,6 @@ const UserAdmin = (props) => {
     renderUser()
   }
 
-  // const ButtonContainer = (props) => {
-  //   const { userId } = props;
-  //   console.log(userId);
-  //   return (
-  //     <>
-  //       <Button
-  //         buttonClass="button-edit-task"
-  //         buttonName="Edit"
-  //         onClick={() => handleEditUser(userId)}
-  //       />
-  //       <Button
-  //         buttonClass="button-delete-task"
-  //         buttonName="Delete"
-  //         onClick={() => handleDeleteUser(userId)}
-  //       />
-  //     </>
-  //   );
-  // };
-
   return (
     <Container containerName="l-container">
       <div className="user-admin-control">
@@ -97,7 +77,7 @@ const UserAdmin = (props) => {
                     <td>{user.role}</td>
                   </tr>
                   <tr className="user-table-option">
-                    <ButtonContainer userId={user._id} setIsDisable={setIsDisable} setCurrentUser={setCurrentUser} userList={userList} setUserList={setUserList} data={data}/>
+                    <ButtonContainer userId={user._id} setIsDisable={setIsDisable} setCurrentUser={setCurrentUser} userList={userList} setUserList={setUserList} data={data} setData={setData}/>
                   </tr>
                 </>
               ))}
