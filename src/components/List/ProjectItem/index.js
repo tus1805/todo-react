@@ -4,7 +4,7 @@ import Button from "../../Button";
 import Input from "../../Input";
 
 const ProjectItem = (props) => {
-  const { projectId, projectName, setProjectName, setCurrentProject, renderProject, isDone } =
+  const { projectId, projectName, setProjectName, setCurrentProject, renderProject, isDone, onClick } =
     props;
 
   async function handleEditProject(id) {
@@ -42,7 +42,7 @@ const ProjectItem = (props) => {
           checked={isDone}
           onClick={() => handleCheckIsDone(projectId)}
         />
-        <label>{projectName}</label>
+        <label onClick={onClick}>{projectName}</label>
       </span>
       <span className="project-item-option">
         <Button

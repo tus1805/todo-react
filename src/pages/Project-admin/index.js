@@ -5,8 +5,11 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 import Option from "../../components/Option";
 import List from "../../components/List";
-import { getAllProject, createProject, editProject } from "../../API/project";
+import { getAllProject, createProject, editProject, getProjectById } from "../../API/project";
 import ProjectItem from "../../components/List/ProjectItem";
+import { getAllUser } from "../../API/user";
+import { editTask, getAllTask } from "../../API/task";
+import {getDataFromLocalByKey, setItemWithLocal} from "../../utils/process-data"
 
 const ProjectAdmin = () => {
   const [projectList, setProjectList] = useState([]);
@@ -16,6 +19,7 @@ const ProjectAdmin = () => {
   const currentUser = localStorage.getItem("userId")
   const [option, setOption] = useState("all");
   console.log(currentUser);
+  console.log(currentProject)
 
   function handleInputProject(event) {
     setProjectName(event.target.value);
@@ -39,6 +43,15 @@ const ProjectAdmin = () => {
     console.log(filteredProject)
     
     setProjectList(filteredProject);
+  }
+
+  async function handleProject(projectId) {
+    const requestId = {
+      _id : projectId
+    }
+    const thisProject = await getProjectById(requestId)
+    console.log('23',thisProject);
+    setCurrentProject(thisProject)
   }
 
   async function addProject(e) {
@@ -71,7 +84,104 @@ const ProjectAdmin = () => {
   function handleFilterOption(event) {
     setOption(event.target.value);
   }
-  function getSelectedUser() { }
+  function renderTaskOption() {
+    const taskOption = document.getElementById("tasks");
+    getDataFromLocalByKey("taskList").forEach((task, index) => {
+      const option = document.createElement("option");
+      option.value = task.taskName;
+      option.textContent = task.taskName;
+      taskOption.appendChild(option);
+    })
+  }
+  function renderUserOption() {
+    const userOption = document.getElementById("users");
+    getDataFromLocalByKey("userdata").forEach((user, index) => {
+      const option = document.createElement("option");
+      option.value = user.username;
+      option.textContent = user.name;
+      userOption.appendChild(option);
+    })
+  }
+  
+  function getSelectedValue(id) {
+    return document.getElementById(id).value
+  }
+  
+  async function addUser() {
+    const projectId = currentProject._id;
+    const username = getSelectedValue("users");
+    const userSeletedData = getDataFromLocalByKey("userdata").filter(value => value.username === username)[0]
+    const name = userSeletedData.name;
+    const newProjectUser = { "projectId": projectId, "username": username, "name": name }
+    const projectUser = getDataFromLocalByKey("projectUser") || [];
+    projectUser.push(newProjectUser);
+    setItemWithLocal("projectUser", projectUser);
+    renderUserList();
+  }
+  
+  function renderUserList() {
+    let userContainer = document.getElementById("user-list");
+    const currentProjectId = getDataFromLocalByKey("currentProject").projectId;
+    userContainer.innerHTML = '';
+    const projectUser = getDataFromLocalByKey("projectUser") || [];
+    projectUser.forEach(project => {
+      if (project.projectId === currentProjectId) {
+        userContainer.innerHTML += `<p>${project.name}</p>`
+      }
+    })
+  }
+  
+  async function addTask() {
+    const projectId = currentProject._id;
+    const taskName = getSelectedValue("tasks");
+    const taskList = await getAllTask();
+    taskList.forEach(value => {
+      if (value.taskName === taskName) {
+        value.projectId = projectId;
+      }
+    });
+    await editTask(taskList)
+    renderTaskList();
+  }
+  
+  function renderTaskList() {
+    let taskContainer = document.getElementById("task-list");
+    const currentProjectId = currentProject._id;
+    taskContainer.innerHTML = '';
+    const taskList = getDataFromLocalByKey("taskList") || [];
+    taskList.forEach(task => {
+      if (task.projectId === currentProjectId) {
+        taskContainer.innerHTML += `<p>${task.taskName}</p>`
+      }
+    })
+  }
+
+  useEffect(()=> {
+    renderUserOption()
+    renderTaskOption()
+  }, [])
+
+  async function renderUserOption() {
+    const userOption = document.getElementById("users");
+    const userList = await getAllUser()
+    userList.forEach((user, index) => {
+      const option = document.createElement("option");
+      option.value = user.username;
+      option.textContent = user.name;
+      userOption.appendChild(option);
+    })
+  }
+
+  async function renderTaskOption() {
+    const taskOption = document.getElementById("tasks");
+    const taskList = await getAllTask()
+    taskList.forEach((task, index) => {
+      const option = document.createElement("option");
+      option.value = task.taskName;
+      option.textContent = task.taskName;
+      taskOption.appendChild(option);
+    })
+  }
 
   return (
     <Container containerName="l-container">
@@ -83,6 +193,7 @@ const ProjectAdmin = () => {
           <Input
             inputId="add-project-field"
             inputType="text"
+            value={projectName}
             onChange={handleInputProject}
           />
           <Button
@@ -127,28 +238,27 @@ const ProjectAdmin = () => {
                 setCurrentProject={setCurrentProject}
                 renderProject={renderProject}
                 isDone={value.isDone}
+                onClick={() => handleProject(value._id)}
               />
             );
           })}
             </List>
           </List>
           <List className="todo-list">
-            <h3 id="task-project-name">Task list in Project</h3>
+            <h3 id="task-project-name">Task list in Project {currentProject?.projectName}</h3>
             <div className="todo-form">
-              <Select selectId="tasks"></Select>
-              <Button buttonClass="button-add-task" onClick={addProject}>
-                Add
-              </Button>
+              <Select selectId="tasks" ></Select>
+              <Button buttonClass="button-add-task" onClick={addTask} buttonName="Add"/>
             </div>
-            <List listId="task-list"></List>
+            <List listId="task-list">
+              
+            </List>
           </List>
           <List className="todo-list">
-            <h3 id="user-project-name">User list in Project</h3>
+            <h3 id="user-project-name">User list in Project {currentProject?.projectName} </h3>
             <div className="todo-form">
-              <Select selectId="users" onChange={getSelectedUser}></Select>
-              <Button buttonClass="button-add-user" onClick={addProject}>
-                Add
-              </Button>
+              <Select selectId="users"></Select>
+              <Button buttonClass="button-add-task" onClick={addUser} buttonName="Add"/>
             </div>
             <List listId="user-list"></List>
           </List>
