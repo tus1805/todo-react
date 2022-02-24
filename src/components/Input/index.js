@@ -10,10 +10,12 @@ const Input = (props) => {
     onChange,
     checked,
     onClick,
+    inputClass,
   } = props;
   return (
     <input
       id={inputId}
+      className={inputClass}
       type={inputType}
       onInput={onInputFunction}
       name={inputName}

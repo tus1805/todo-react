@@ -41,19 +41,3 @@ export const deleteProject = async (projectId) => {
   });
   return response.json();
 };
-
-export const addTaskToProject = async (task) => {
-  const response = await fetch(`${API_URL}/project-tasks`, {
-    method: "PATCH",
-    body: JSON.stringify(task),
-  });
-  return response.json();
-}
-
-export const addUserToProject = async (user) => {
-  const response = await fetch(`${API_URL}/project-users`, {
-    method: "PATCH",
-    body: JSON.stringify(user),
-  });
-  return response.json();
-}

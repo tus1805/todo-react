@@ -8,8 +8,8 @@ const ProjectItem = (props) => {
     props;
 
   async function handleEditProject(id) {
-    document.querySelector(".button-update-project").style.display = "inline";
-    document.querySelector(".button-add-project").style.display = "none";
+    document.querySelector(".button-update-task").style.display = "inline";
+    document.querySelector(".button-add-task").style.display = "none";
     setProjectName(projectName);
     const requestId = {
       _id: id,
@@ -34,8 +34,8 @@ const ProjectItem = (props) => {
   }
 
   return (
-    <div className="project-item">
-      <span className="project-item-projectname">
+    <div className="todo-item">
+      <span className="todo-item-taskname">
         <Input
           inputType="checkbox"
           inputId="checkbox"
@@ -44,14 +44,14 @@ const ProjectItem = (props) => {
         />
         <label onClick={onClick}>{projectName}</label>
       </span>
-      <span className="project-item-option">
+      <span className="todo-item-option">
         <Button
-          buttonClass="button-edit-project"
+          buttonClass="button-edit-task"
           buttonName="Edit"
           onClick={() => handleEditProject(projectId)}
         />
         <Button
-          buttonClass="button-delete-project"
+          buttonClass="button-delete-task"
           buttonName="Delete"
           onClick={() => handleDeleteProject(projectId)}
         />

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Container from "../../components/Container";
 import Button from "../../components/Button";
@@ -81,6 +82,7 @@ const ToDoList = () => {
           <>
             <Input
               inputId="add-task-field"
+              inputClass="add-task-field"
               inputType="text"
               value={taskName}
               onChange={handleInputTask}
