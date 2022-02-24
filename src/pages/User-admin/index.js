@@ -41,7 +41,7 @@ const UserAdmin = () => {
   function addUser() {
     document.querySelector(".button-update-user").style.display = "none";
     document.querySelector(".button-add-user").style.display = "inline";
-    // setIsDisable(false);
+    enableForm();
     resetForm();
   }
 
@@ -59,13 +59,13 @@ const UserAdmin = () => {
             <tbody>
               <tr>
                 <td>Name</td>
-                <td>Role</td>
+                <td>Admin</td>
               </tr>
               {userList.map((user) => (
                 <>
                   <tr className="user-table" key={user._id}>
                     <td>{user.name}</td>
-                    <td>{user.role}</td>
+                    <td>{user.isAdmin.toString()}</td>
                   </tr>
                   <tr className="user-table-option">
                     <ButtonContainer
@@ -78,6 +78,7 @@ const UserAdmin = () => {
                       setData={setData}
                       isEditting={isEditting}
                       setIsEditting={setIsEditting}
+                      enableForm={enableForm}
                     />
                   </tr>
                 </>
@@ -100,6 +101,7 @@ const UserAdmin = () => {
           setData={setData}
           isEditting={isEditting}
           setIsEditting={setIsEditting}
+          disableForm={disableForm}
         />
       </div>
     </Container>

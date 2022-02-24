@@ -2,8 +2,9 @@ import React, { useState, useEffect }  from 'react'
 import Button from '../../../components/Button';
 import { deleteUser, getAllUser, getUserById } from "../../../API/user";
 
+
 const ButtonContainer = (props) => {
-  const { userId, setIsDisable, setCurrentUser, userList, setUserList, data, setData, isEditting, setIsEditting } = props;
+  const { userId, setIsDisable, setCurrentUser, userList, setUserList, data, setData, isEditting, setIsEditting, enableForm } = props;
   
   
 
@@ -18,7 +19,7 @@ const ButtonContainer = (props) => {
     console.log("edit");
     let data = {};
     console.log(data);
-    setIsDisable(false);
+    enableForm();
     // setIsEditting(true)
     const requestId = {
       _id: userId
@@ -34,7 +35,7 @@ const ButtonContainer = (props) => {
         password: currentUser.password,
         age: currentUser.age,
         gender: currentUser.gender,
-        role: currentUser.role,
+        isAdmin: currentUser.isAdmin,
       }
     )
     // const userList = await getAllUser();
@@ -46,10 +47,10 @@ const ButtonContainer = (props) => {
         } else if (currentUser.gender === "female") {
           document.getElementById("female").checked = true;
         }
-        if (currentUser.role === "admin") {
-          document.getElementById("setAdmin").checked = true;
+        if (currentUser.isAdmin === true) {
+          document.getElementById("role").checked = true;
         } else {
-          document.getElementById("setAdmin").checked = false;
+          document.getElementById("role").checked = false;
         }
         // localStorage.setItem("ref", currentUser.userId);
       // }

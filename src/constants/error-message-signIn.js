@@ -13,5 +13,5 @@ export const adminAccount = {
   confirmPassword: "Set@1223",
   age: 18,
   gender: "male",
-  role: "admin",
+  isAdmin: true,
 };

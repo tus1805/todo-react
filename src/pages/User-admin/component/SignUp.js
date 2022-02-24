@@ -16,20 +16,20 @@ import { getElementValueById, resetForm } from "../../../utils/helper-validate";
 import { setItemWithLocal } from "../../../utils/process-data";
 import CheckboxGroup from "../../../components/CheckboxGroup";
 import { signUp } from "../../../API/user";
-import { enableForm, disableForm } from "../../../utils/user-admin";
+// import { enableForm, disableForm } from "../../../utils/user-admin";
 import { getAllUser, getUserById, editUser } from "../../../API/user";
 import Button from "../../../components/Button";
 
 const SignUpAdmin = (props) => {
-  const { userList, setUserList, setCurrentUser, data, setData, isEditting, setIsEditting } = props;
+  const { userList, setUserList, setCurrentUser, data, setData, isEditting, setIsEditting, disableForm } = props;
   console.log(data)
   
   const [genderValue, setGenderValue] = useState("");
   const [isDisable, setIsDisable] = useState(true);
 
-  useEffect(() => {
-    isDisable ? disableForm() : enableForm();
-  }, [isDisable]);
+  // useEffect(() => {
+  //   isDisable ? disableForm() : enableForm();
+  // }, [isDisable]);
 
   async function renderUser() {
     const userData = await getAllUser();
@@ -60,9 +60,9 @@ const SignUpAdmin = (props) => {
       confirmPassword: "",
       age: "",
       gender: "",
-      role: "",
+      isAdmin: "",
     });
-    // setIsDisable(true);
+    setIsDisable(true);
     renderUser();
   }
 
@@ -103,6 +103,7 @@ const SignUpAdmin = (props) => {
   }, [genderValue]);
 
   function cancelEdit(){
+    disableForm();
     resetForm();
   }
 
@@ -136,10 +137,9 @@ const SignUpAdmin = (props) => {
     validateAge(age);
   }
   function setAdmin(e){
-    const isAdmin = e.target;
     const value = e.target.checked;
-    console.log(value)
-    setData({...data, [isAdmin]: value});
+    console.log(value);
+    setData({...data, isAdmin: value});
   }
 
   return (
@@ -220,7 +220,7 @@ const SignUpAdmin = (props) => {
           />
         </div>
         <CheckboxGroup
-          groupId="setAdmin"
+          groupId="role"
           labelName="Set admin"
           onChange={setAdmin}
         >
