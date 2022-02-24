@@ -4,7 +4,6 @@ import CheckboxGroup from "../../components/CheckboxGroup";
 import Form from "../../components/Form";
 import FormGroup from "../../components/FormGroup";
 import { Link } from "react-router-dom";
-
 import {
   setItemWithLocal,
   setItemWithSession,
@@ -27,7 +26,6 @@ const SignIn = () => {
       isRemember === true
         ? setItemWithLocal("todoToken", token.token)
         : setItemWithSession("todoToken", token.token);
-      // setItemWithLocal("userId ", token.userId);
       localStorage.setItem("userId", token.userId)
       alert("Login successfully");
       navigate("/");

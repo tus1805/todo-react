@@ -9,8 +9,6 @@ import {
   MAX_PASSWORD_LENGTH,
   MIN_AGE,
   MAX_AGE,
-  ENTER_KEY,
-  TAB_KEY
 } from "../constants/validate";
 import {
   validateRequire,

@@ -1,10 +1,5 @@
-import { useEffect } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { doLogOut } from "../../utils/helper-log-status";
-import {
-  getDataFromLocalByKey,
-  getDataFromSessionByKey,
-} from "../../utils/process-data";
 import Button from "../Button";
 
 const Layout = () => {
@@ -13,18 +8,6 @@ const Layout = () => {
     navigate("/sign-in");
     doLogOut();
   }
-  function checkLoginStatus() {
-    const localToken = getDataFromLocalByKey("todoToken");
-    const sessionToken = getDataFromSessionByKey("todoToken");
-    if (!sessionToken[0] && !localToken[0]) {
-      alert("You are not logged in");
-      navigate("/sign-in");
-    }
-  }
-
-  useEffect(() => {
-    checkLoginStatus();
-  });
 
   return (
     <div>

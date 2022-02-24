@@ -16,6 +16,7 @@ import ProjectItem from "../../components/List/ProjectItem";
 import { getAllUser } from "../../API/user";
 import { editTask, getAllTask, getTaskById } from "../../API/task";
 import { createProjectUser, getAllProjectUser } from "../../API/project-user";
+import { showTableControl } from "../../utils/project-admin";
 
 const ProjectAdmin = () => {
   const [projectList, setProjectList] = useState([]);
@@ -39,6 +40,7 @@ const ProjectAdmin = () => {
     renderTaskOption();
     setTaskId(taskList?.[0]?._id);
     setUserId(userList?.[0]?._id);
+    localStorage.removeItem("projectId");
   }, []);
 
   useEffect(() => {
@@ -60,6 +62,7 @@ const ProjectAdmin = () => {
         (value) => value.isDone === false
       );
     }
+    showTableControl();
     setProjectList(filteredProject);
   }
 
@@ -67,8 +70,10 @@ const ProjectAdmin = () => {
     const requestId = {
       _id: projectId,
     };
+    localStorage.setItem("projectId", projectId);
     const thisProject = await getProjectById(requestId);
     setCurrentProject(thisProject);
+    showTableControl();
     renderTaskList();
     renderUserList();
   }
@@ -134,9 +139,7 @@ const ProjectAdmin = () => {
     const requestId = {
       _id: taskId,
     };
-    console.log(requestId);
     const foundTask = await getTaskById(requestId);
-    console.log("found task", foundTask);
     foundTask.projectId = projectId;
     await editTask(foundTask);
     renderTaskOption();
@@ -253,7 +256,7 @@ const ProjectAdmin = () => {
             </div>
             <List listId="task-list">
               {renderTaskList().map((task) => {
-                return <p>{task.taskName}</p>;
+                return <p key={task._id}>{task.taskName}</p>;
               })}
             </List>
           </List>
@@ -277,7 +280,7 @@ const ProjectAdmin = () => {
             </div>
             <List listId="user-list">
               {renderedUserList.map((user) => {
-                return <p>{user.name}</p>;
+                return <p key={user._id}>{user.name}</p>;
               })}
             </List>
           </List>

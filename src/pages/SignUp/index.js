@@ -80,27 +80,27 @@ const SignUp = () => {
   }
 
   function handleNameMessage(e) {
-    const name = getElementValueById("name");
+    const name = e.target.value;
     validateName(name);
   }
 
   function handleUsernameMessage(e) {
-    const username = getElementValueById("username");
+    const username = e.target.value;
     validateUsername(username);
   }
 
   function handlePasswordMessage(e) {
-    const password = getElementValueById("password");
+    const password = e.target.value;
     validatePassword(password);
   }
 
   function handleConfirmPasswordMessage(e) {
     const password = getElementValueById("password");
-    const confirmPassword = getElementValueById("confirmPassword");
+    const confirmPassword = e.target.value;
     validateConfirmPassword(password, confirmPassword);
   }
   function handleAgeMessage(e) {
-    const age = getElementValueById("age");
+    const age = e.target.value;
     validateAge(age);
   }
 
