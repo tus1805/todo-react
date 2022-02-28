@@ -317,6 +317,14 @@ table th:nth-child(1) {
   height: calc(100vh - 60px);
 }
 
-.hide {
+.button-add-user.hide, .button-update-user.hide {
+  display: none;
+}
+
+.button-add-user.show, .button-update-user.show {
+  display: inline;
+}
+
+.button-add-user, .button-update-user {
   display: none;
 }

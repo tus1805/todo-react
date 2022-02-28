@@ -12,6 +12,7 @@ const UserAdmin = () => {
   const [userList, setUserList] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [isEditting, setIsEditting] = useState(false);
+  const [isAdding, setIsAdding] = useState(false)
   const [isDisable, setIsDisable] = useState(true);
   const [data, setData] = useState({
     name: "",
@@ -26,6 +27,9 @@ const UserAdmin = () => {
   useEffect(() => {
     isDisable ? disableForm() : enableForm();
   }, [isDisable]);
+  
+  console.log(isAdding, isEditting);
+
 
   useEffect(() => {
     renderUser();
@@ -39,15 +43,17 @@ const UserAdmin = () => {
   }
 
   function addUser() {
-    document.querySelector(".button-update-user").style.display = "none";
-    document.querySelector(".button-add-user").style.display = "inline";
+    setIsEditting(false);
+    setIsAdding(true)
+    console.log(isEditting);
+    // document.querySelector(".button-update-user").style.display = "none";
+    // document.querySelector(".button-add-user").style.display = "inline";
     enableForm();
     resetForm();
   }
 
   async function handleDeleteUser(id) {
     await deleteUser(id);
-    console.log(1);
     renderUser();
   }
 
@@ -59,13 +65,13 @@ const UserAdmin = () => {
             <tbody>
               <tr>
                 <td>Name</td>
-                <td>Admin</td>
+                <td>Role</td>
               </tr>
               {userList.map((user) => (
                 <>
                   <tr className="user-table" key={user._id}>
                     <td>{user.name}</td>
-                    <td>{user.isAdmin.toString()}</td>
+                    <td>{user.isAdmin? 'Admin' : 'User'}</td>
                   </tr>
                   <tr className="user-table-option">
                     <ButtonContainer
@@ -78,6 +84,8 @@ const UserAdmin = () => {
                       setData={setData}
                       isEditting={isEditting}
                       setIsEditting={setIsEditting}
+                      isAdding={isAdding}
+                      setIsAdding={setIsAdding}
                       enableForm={enableForm}
                     />
                   </tr>
@@ -101,6 +109,8 @@ const UserAdmin = () => {
           setData={setData}
           isEditting={isEditting}
           setIsEditting={setIsEditting}
+          isAdding={isAdding}
+          setIsAdding={setIsAdding}
           disableForm={disableForm}
         />
       </div>

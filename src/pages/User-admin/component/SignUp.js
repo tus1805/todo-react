@@ -21,7 +21,7 @@ import { getAllUser, getUserById, editUser } from "../../../API/user";
 import Button from "../../../components/Button";
 
 const SignUpAdmin = (props) => {
-  const { userList, setUserList, setCurrentUser, data, setData, isEditting, setIsEditting, disableForm } = props;
+  const { userList, setUserList, setCurrentUser, data, setData, isEditting, isAdding, setIsAdding, setIsEditting, disableForm } = props;
   console.log(data)
   
   const [genderValue, setGenderValue] = useState("");
@@ -41,6 +41,8 @@ const SignUpAdmin = (props) => {
 
   async function addUser(e) {
     e.preventDefault();
+    setIsEditting(false)
+    setIsAdding(true)
     let userData = {};
     userData.isAdmin = data.isAdmin;
     userData.name = data.name;
@@ -48,7 +50,7 @@ const SignUpAdmin = (props) => {
     userData.password = data.password;
     userData.age = data.age;
     userData.gender = data.gender;
-    console.log(userData);
+    // console.log(userData);
     if (!validateForm()) {
       return;
     }
@@ -64,6 +66,8 @@ const SignUpAdmin = (props) => {
     });
     setIsDisable(true);
     renderUser();
+    resetForm();
+    disableForm();
   }
 
   async function updateUser() {
@@ -72,7 +76,7 @@ const SignUpAdmin = (props) => {
     // console.log(currentUser);
     renderUser();
     resetForm();
-    
+    disableForm();
   }
 
   function validateForm() {
@@ -103,6 +107,8 @@ const SignUpAdmin = (props) => {
   }, [genderValue]);
 
   function cancelEdit(){
+    setIsAdding(false)
+    setIsEditting(false)
     disableForm();
     resetForm();
   }
@@ -225,12 +231,11 @@ const SignUpAdmin = (props) => {
           onChange={setAdmin}
         >
         </CheckboxGroup>
-        <Button buttonName="Confirm" buttonClass="button-add-user" onClick={addUser}/>
-        <Button buttonName="Update" buttonClass="button-update-user" onClick={updateUser}/>
+        <Button buttonName="Confirm" buttonClass={`button-add-user ${isAdding ? 'show' : 'hide'} `} onClick={addUser}/>
+        <Button buttonName="Update" buttonClass={`button-update-user ${isEditting? 'show' : 'hide'} `} onClick={updateUser}/>
         <Button buttonName="Cancel" buttonClass="button-cancel" onClick={cancelEdit}/>
       </>
     </Form>
   );
 };
-
 export default SignUpAdmin;

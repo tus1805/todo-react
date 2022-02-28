@@ -4,7 +4,7 @@ import { deleteUser, getAllUser, getUserById } from "../../../API/user";
 
 
 const ButtonContainer = (props) => {
-  const { userId, setIsDisable, setCurrentUser, userList, setUserList, data, setData, isEditting, setIsEditting, enableForm } = props;
+  const { userId, setIsDisable, setCurrentUser, userList, setUserList, data, setData, isEditting, setIsEditting, enableForm, setIsAdding } = props;
   
   
 
@@ -20,7 +20,9 @@ const ButtonContainer = (props) => {
     let data = {};
     console.log(data);
     enableForm();
-    // setIsEditting(true)
+    setIsEditting(true);
+    setIsAdding(false)
+    console.log(isEditting)
     const requestId = {
       _id: userId
     }
@@ -57,8 +59,8 @@ const ButtonContainer = (props) => {
     // })
     console.log(data);
     
-    document.querySelector(".button-update-user").style.display = "inline";
-    document.querySelector(".button-add-user").style.display = "none";
+    // document.querySelector(".button-update-user").style.display = "inline";
+    // document.querySelector(".button-add-user").style.display = "none";
     return userList;
   }
 

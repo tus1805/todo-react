@@ -36,7 +36,7 @@ const SignUp = () => {
     userData.password = data.password;
     userData.age = data.age;
     userData.gender = data.gender;
-    console.log(userData);
+    // console.log(userData);
     if (!validateForm()) {
       return;
     }
