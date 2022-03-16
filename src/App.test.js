@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import App from "./App";
+import renderer from "react-test-renderer";
 
 describe("App component", () => {
   //Test 1: Ví dụ test quản lý state cơ bản
@@ -17,4 +18,9 @@ describe("App component", () => {
     const text = wrapper.find("div.counter-value").text();
     expect(text).toEqual("Count: 1");
   });
+});
+
+it("matches the snapshot", () => {
+  const tree = renderer.create(<App />).toJSON();
+  expect(tree).toMatchSnapshot();
 });
