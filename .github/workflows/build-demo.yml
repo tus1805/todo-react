@@ -1,8 +1,11 @@
 name: GitHub Actions Build
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
     steps:
     - name: Build
       run: npm run build
