@@ -28,4 +28,28 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    # - run: npm test
+    # - name: Deploy production
+    #     if: github.ref == 'refs/heads/master'
+    #     uses: garygrossgarten/github-action-scp@release
+    #     with:
+    #       local: target/liftu.war
+    #       remote: ${{ secrets.HOME_PATH }}/liftu.war
+    #       host: ${{ secrets.HOST }}
+    #       username: ${{ secrets.SSH_USER }}
+    #       password: ${{ secrets.PASSWORD }}
+  
+  deploy: 
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps: 
+      - uses: actions/checkout@v2
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with: 
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Provision droplet and deploy container
+        run: doctl compute droplet create "$" --image docker-18-04 --size s-1vcpu-1gb  
