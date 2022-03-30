@@ -52,4 +52,4 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Provision droplet and deploy container
-        run: doctl compute droplet create "$" --image docker-18-04 --size s-1vcpu-1gb --region sgp1  
+        run: doctl compute droplet create "testing" --image docker-18-04 --size s-1vcpu-1gb --region sgp1  
