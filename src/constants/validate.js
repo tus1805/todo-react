@@ -8,6 +8,8 @@ export const MAX_USERNAME_LENGTH = 20;
 export const MIN_PASSWORD_LENGTH = 6;
 export const MAX_PASSWORD_LENGTH = 20;
 
+export const API_URL = "http://128.199.147.111:8000";
+
 export const MIN_AGE = 1;
 export const MAX_AGE = 118;
 

@@ -1,5 +1,5 @@
 //API_URL from env
-const API_URL = "http://localhost:8000";
+import { API_URL } from "../../constants/validate";
 
 export const getUserById = async (userId) => {
   const response = await fetch(`${API_URL}/find-user`, {
