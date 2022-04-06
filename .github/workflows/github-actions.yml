@@ -15,7 +15,7 @@ on:
 #
 env:
   IMAGE_NAME: 'bachdi/todo_first_test'
-  CONTAINER_NAME: 'Todo'
+  CONTAINER_NAME: 'TuXinhDep'
  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
