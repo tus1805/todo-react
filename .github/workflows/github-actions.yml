@@ -48,7 +48,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/todo_fe:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/test:latest
 
   deploy_to_digital_ocean:
     # The type of runner that the job will run on
